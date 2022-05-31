@@ -1,0 +1,10 @@
+node_modules
+.env
+certs
+update.sh
+start.sh
+cfg
+images
+teste.html
+logs
+dist
