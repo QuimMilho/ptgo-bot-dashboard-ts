@@ -115,7 +115,7 @@ export default class GuildManager {
 			fs.mkdirSync(process.cwd() + '/config/guilds');
 		fs.writeFileSync(
 			process.cwd() + `/config/guilds/${guildId}.json`,
-			JSON.stringify(features, null, 1)
+			JSON.stringify(features, null, 4)
 		);
 		console.log(`Criada config file para a guild com id ${guildId}`);
 	}

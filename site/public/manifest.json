@@ -1,0 +1,9 @@
+{
+	"short_name": "PT:GO BOT",
+	"name": "PT:GO DISCORD BOT",
+	"icons": [],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#ffffff",
+	"background_color": "#000000"
+}

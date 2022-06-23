@@ -1,4 +1,4 @@
-import { ConnectionOptions } from 'mysql2';
+import { ConnectionOptions } from 'mysql';
 
 export interface ClientConfig {
 	token: string;
@@ -10,7 +10,7 @@ export interface ClientConfig {
 }
 
 export interface APIConfig {
-	port: string;
+	port: number;
 	https: boolean;
 	secret: string;
 	callbackURL: string;
