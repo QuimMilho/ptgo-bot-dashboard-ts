@@ -1,265 +1,316 @@
 import {
-	Collection,
+	ColorResolvable,
 	EmojiResolvable,
+	MessageEmbed,
 	Snowflake,
 } from 'discord.js';
+import { CustomEmbed } from './Messages';
 
-export interface FeaturesString {
-	feature:
-		| 'moderacao'
+export interface FeatureList {
+	name:
+		| 'public'
+		| 'moderation'
 		| 'logs'
-		| 'join'
-		| 'leave'
-		| 'levels'
+		| 'joinmessage'
+		| 'leavemessage'
+		| 'level'
 		| 'ticket'
-		| 'serverStats'
-		| 'memberStats'
-		| 'reactRole'
-		| 'anuncios'
+		| 'serverstats'
+		| 'memberstats'
+		| 'reactionroles'
+		| 'anouncements'
 		| 'giveaway'
 		| 'polls'
 		| 'forms'
-		| 'servers'
-		| 'staffs';
+		| 'serverlist'
+		| 'stafflist';
 }
 
-export interface SettingsOptions {
-	moderacao: ModeracaoOptions | undefined;
-	logs: LogOptions | undefined;
-	join: JoinOptions | undefined;
-	leave: LeaveOptions | undefined;
-	levels: LevelOptions | undefined;
-	ticket: TicketOptions | undefined;
-	serverStats: ServerStatsOptions | undefined;
-	memberStats: MemberStatsOptions | undefined;
-	reactRole: ReactionRolesOptions | undefined;
-	anuncios: AnunciosOptions | undefined;
-	giveaway: GiveAwayOptions | undefined;
-	polls: PollsOptions | undefined;
-	forms: FormsOptions | undefined;
-	servers: ServersOptions | undefined;
-	staffs: StaffOptions | undefined;
+export interface Features {
+	public: PublicOptions;
+	moderation: ModerationOptions;
+	logs: LogsOptions;
+	joinmessage: JoinMessageOptions;
+	leavemessage: LeaveMessageOptions;
+	level: LevelOptions;
+	ticket: TicketOptions;
+	serverstats: ServerStatsOptions;
+	memberstats: MemberStatsOptions;
+	reactionroles: ReactionRoleOptions;
+	anouncements: AnounceOptions;
+	giveaway: GiveAwayOptions;
+	polls: PollOptions;
+	forms: FormOptions;
+	serverlist: ServerListOptions;
+	stafflist: StaffListOptions;
 }
 
-export interface ModeracaoOptions {
+/* Public */
+
+export interface PublicOptions {
+	public: boolean;
+}
+
+/* Moderation */
+
+export interface ModerationOptions {
+	active: boolean;
 	automod: AutoModOptions;
-	warns: WarnOptions;
-	mutedRoles: string[];
-	bannedRoles: string[];
+	warns: WarningsOptions;
+	timedPunitions: boolean;
+	mutedRoles: Snowflake[];
 	banRoles: boolean;
-	moderator: string[];
-	logs: string[];
+	bannedRoles: Snowflake[];
+	moderators: Snowflake[];
+	logs: Snowflake[];
 }
 
 export interface AutoModOptions {
-	massemoji: number;
-	massmention: number;
+	massEmoji: number;
+	massMention: number;
 	discordInvites: boolean;
 	links: boolean;
 	duplicatedMessages: boolean;
+	autoDeleteMessages: Snowflake[];
 }
 
-export interface WarnOptions {
-	max: number;
+export interface WarningsOptions {
+	maxWarnings: number;
 	muteTime: number;
-	expires: number;
+	warnExpires: number;
 }
 
-export interface LogOptions {
-	user: string[];
-	chats: string[];
-	mensagens: string[];
-	roles: string[];
-	invites: string[];
-	members: string[];
-	error: string[];
+/* Logs */
+
+export interface LogsOptions {
+	active: boolean;
+	user: Snowflake[];
+	chat: Snowflake[];
+	message: Snowflake[];
+	role: Snowflake[];
+	invite: Snowflake[];
+	member: Snowflake[];
 }
 
-export interface JoinOptions {
-	channels: JoinChannelOptions;
-	messages: JoinMessagesOptions;
+/* Join Message */
+
+export interface JoinMessageOptions {
+	active: boolean;
+	channels: JoinMessageChannelOptions;
+	messages: JoinMessageMessageOptions;
 }
 
-export interface JoinChannelOptions {
-	channel: string[];
-	invites: string[];
+export interface JoinMessageChannelOptions {
+	logs: Snowflake[];
+	invites: Snowflake[];
 }
 
-export interface JoinMessagesOptions {
-	image: string;
-	url: string;
-	mensagem: string;
+export interface JoinMessageMessageOptions {
+	message: string;
 	imagem: boolean;
+	imageMessage: string;
 	inviteMessage: string;
-	noInvite: string;
+	noInviteMessage: string;
 }
 
-export interface LeaveOptions {
-	channels: LeaveChannelOptions;
-	messages: LeaveMessagesOptions;
+/* Leave Message */
+
+export interface LeaveMessageOptions {
+	active: boolean;
+	logs: Snowflake[];
+	messages: LeaveMessageMessageOptions;
 }
 
-export interface LeaveChannelOptions {
-	channel: string[];
-}
-
-export interface LeaveMessagesOptions {
-	image: string;
-	url: string;
-	mensagem: string;
+export interface LeaveMessageMessageOptions {
+	message: string;
 	imagem: boolean;
+	imageMessage: string;
 }
+
+/* Levels */
 
 export interface LevelOptions {
-	channel: string[];
-	logs: string[];
+	active: boolean;
+	channel: Snowflake[];
+	logs: Snowflake[];
+	multipliers: MultiplierOptions[];
+	rolesPerLevel: [];
 }
+
+export interface MultiplierOptions {
+	id: Snowflake;
+	mult: number;
+}
+
+export interface LevelRolesOptions {
+	id: Snowflake;
+	level: number;
+}
+
+/* Tickets */
 
 export interface TicketOptions {
-	createChannel: TicketCreateChannelOptions;
-	logs: TicketLogsOptions;
+	active: boolean;
+	createChannel: CreateTicketChannelOptions;
+	roles: TicketRolesOptions;
+	openMessage: OpenMessageTicketOptions;
 }
 
-export interface TicketCreateChannelOptions {
-	categoty: string;
-	above: string;
-	below: string;
+export interface CreateTicketChannelOptions {
+	category: Snowflake;
+	selected: 'END' | 'ABOVE' | 'BELOW';
+	channel: Snowflake;
 }
 
-export interface TicketLogsOptions {
-	channel: string[];
-	transctipts: string[];
+export interface TicketRolesOptions {
+	moderator: Snowflake[];
+	staff: Snowflake[];
+	forbiden: Snowflake[];
 }
+
+export interface OpenMessageTicketOptions {
+	message: string;
+	embed: CustomEmbed;
+	button: OpenMessageButtonTicketOptions;
+}
+
+export interface OpenMessageButtonTicketOptions {
+	label: string;
+	color: 'PRIMARY' | 'SECUNDARY' | 'DANGER' | 'SUCCESS';
+}
+
+/* Server Stats */
 
 export interface ServerStatsOptions {
-	online: string;
-	onServer: string;
+	active: boolean;
+	online: Snowflake;
+	inServer: Snowflake;
 }
+
+/* Member Stats */
 
 export interface MemberStatsOptions {
-	roles: string[];
-	logs: string[];
+	active: boolean;
+	roles: Snowflake[];
+	logs: Snowflake[];
 }
 
-export interface ReactionRolesOptions {
-	messages: ReactionRolesMessageOptions[];
+/* Reaction Roles */
+
+export interface ReactionRoleOptions {
+	active: boolean;
+	messages: ReactionRoleMessageOptions[];
 }
 
-export interface ReactionRolesMessageOptions {
-	messageId: string;
-	channelId: string;
-	reactions: Collection<EmojiResolvable, string[]>;
+export interface ReactionRoleMessageOptions {
+	message: Snowflake;
+	emojis: ReactionRoleEmojisOptions[];
 }
 
-export interface AnunciosOptions {
-	managerRoles: string[];
+export interface ReactionRoleEmojisOptions {
+	emoji: EmojiResolvable;
+	role: Snowflake;
 }
+
+/* Anouncements */
+
+export interface AnounceOptions {
+	active: boolean;
+	managerRoles: Snowflake[];
+}
+
+/* Giveaways */
 
 export interface GiveAwayOptions {
-	managerRoles: string[];
-	logs: string[];
-	giveaways: GiveAway[];
+	active: boolean;
 }
 
-export interface GiveAway {}
+/* Polls */
 
-export interface PollsOptions {
-	managerRoles: string[];
-	logs: string[];
+export interface PollOptions {
+	active: boolean;
+}
+
+/* Forms */
+
+export interface FormOptions {
+	active: boolean;
+	logs: Snowflake[];
+	managerRoles: Snowflake[];
+	forms: FormsOptions[];
 }
 
 export interface FormsOptions {
-	logs: string[];
-	managerRoles: string[];
-	forms: Forms[];
-}
-
-export interface Forms {
 	id: string;
 	name: string;
-	authorUrlQuestion: string;
-	descriptionQuestion: string;
-	questions: string[];
-	delay: 1;
-	delayAfterAnswer: 1;
-	responseChat: ResponseChatOptions;
-	responseColor: string;
-	questionCOlor: string;
-	introColor: string;
-	buttons: ButtonsOptions[];
+	questions: FormQuestionsOptions[];
+	delay: number;
+	answerDelay: number;
+	responseChat: ResponseChatFormOptions;
+	responseColor: ColorResolvable;
+	questionColor: ColorResolvable;
+	introColor: ColorResolvable;
+	buttons: [];
 	emojis: boolean;
-	bockedRoles: string[];
+	blockedRoles: Snowflake[];
 }
 
-export interface ResponseChatOptions {
-	guild: ResponseChatGuildOptions;
-	channel: ResponseChatChannelOptions;
+export interface FormQuestionsOptions {
+	index: number;
+	question: string;
+	type: 'STRING' | 'URL';
 }
 
-export interface ResponseChatGuildOptions {
+export interface ResponseChatFormOptions {
+	guild: {
+		id: Snowflake;
+		name: string;
+	};
+	channel: {
+		id: Snowflake;
+		name: string;
+	};
+}
+
+export interface FormButtonOptions {
 	id: string;
-	name: string;
-}
-
-export interface ResponseChatChannelOptions {
-	id: string;
-	name: string;
-}
-
-export interface ButtonsOptions {
 	function: 'DM' | 'EMBED_DM' | 'SEND_MESSAGE' | 'SEND_EMBED' | 'SEND_FORM';
-	message: CustomEmbed | string;
-	id: string;
-	text: string;
-	tipo: 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'DANGER' | 'LINK';
-	link: string;
-	index: number;
-	roles: string[];
+	message: string | CustomEmbed;
+	label: string;
+	type: 'SUCCESS' | 'PRIMARY' | 'SECONDARY' | 'DANGER';
+	roles: Snowflake[];
 	deleteAfter: boolean;
-	channel: string;
-	color: string;
-	changeColor: boolean;
+	channel: Snowflake;
+	color: ColorResolvable;
 }
 
-export interface CustomEmbed {
-	title: string;
-	url: string;
-	description: string;
-	footer: string;
-	timeStamp: boolean;
-	fields: CustomField[];
-	color: string;
+/* Server List */
+
+export interface ServerListOptions {
+	active: boolean;
+	servers: ServerOptions[],
+	messages: Snowflake[]
 }
 
-export interface CustomField {
-	index: number;
-	name: string;
-	value: string;
-	inLine: boolean;
-}
-
-export interface ServersOptions {
-	servers: ServersServerInfo[];
-	messages: MessagesInfo[];
-}
-
-export interface ServersServerInfo {
+export interface ServerOptions {
 	ip: string;
 	name: string;
 }
 
+/* Staff list */
+
+export interface StaffListOptions {
+	active: boolean;
+	cargos: CargoOptions[],
+	messages: Snowflake[]
+}
+
+export interface CargoOptions {
+	id: Snowflake;
+	staffs: StaffOptions[];
+}
+
 export interface StaffOptions {
-	staff: StaffInfo[];
-	messages: MessagesInfo[];
-}
-
-export interface StaffInfo {
-	id: string;
-	cargo: string;
-	extras: string[];
-}
-
-export interface MessagesInfo {
-	channelId: string;
-	messageId: string;
+	id: Snowflake;
+	secondCargos: Snowflake[];
 }

@@ -3,7 +3,7 @@ node_modules
 certs
 update.sh
 start.sh
-cfg
+config
 images
 teste.html
 logs

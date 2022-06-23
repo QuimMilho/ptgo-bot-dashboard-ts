@@ -1,10 +1,11 @@
-import Client from './structs/Client';
+import fs from 'fs';
+import ExtendedClient from './client/ExtendedClient';
+import { ClientConfig } from './types/Config';
 
-import { loadConfig } from './strategies/config';
+const configString = fs.readFileSync(process.cwd() + '/config/bot.json');
+const config: ClientConfig = JSON.parse(configString.toString());
 
-const config = loadConfig();
-
-const client = new Client(
+const client = new ExtendedClient(
 	{
 		intents: [
 			'GUILDS',
@@ -24,5 +25,3 @@ const client = new Client(
 );
 
 client.login(config.token);
-
-export { config };
