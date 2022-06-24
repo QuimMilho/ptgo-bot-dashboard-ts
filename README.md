@@ -5,12 +5,12 @@
 * [Pré-Requesitos](#pré-requesitos)
 * [Como instalar](#como-instalar)
 * [MySQL](#mysql)
-  * [Criar a database](#bcriar-a-databaseb)
-  * [Criar as tabelas](#bcriar-as-tabelasb)
+  * Criar a database
+  * Criar as tabelas
 * [Configuração](#configuração)
-  * [Configuração da API do Discord](#configuração-da-api-do-discord)
-  * [API](#api)
-  * [MySQL](#mysql-1)
+  * Configuração da API do Discord
+  * API
+  * MySQL
 
 ## Pré-requesitos
 
