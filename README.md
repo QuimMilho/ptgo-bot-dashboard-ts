@@ -1,5 +1,17 @@
 # PT:GO Discord Bot by Quim Milho
 
+## Índice
+
+* [Pré-Requesitos](#pré-requesitos)
+* [Como instalar](#como-instalar)
+* [MySQL](#mysql)
+  * [Criar a database](#bcriar-a-databaseb)
+  * [Criar as tabelas](#bcriar-as-tabelasb)
+* [Configuração](#configuração)
+  * [Configuração da API do Discord]()
+  * [API](#api)
+  * [MySQL](#mysql-1)
+
 ## Pré-requesitos
 
 Deves ter instalado a versão `16` do `nodejs` e a versão `8` do `npm`. Também vais precisar de uma versão do `git` instalada na máquina.
