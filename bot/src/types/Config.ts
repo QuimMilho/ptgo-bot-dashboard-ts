@@ -1,12 +1,18 @@
-import { ConnectionOptions } from 'mysql';
-
 export interface ClientConfig {
 	token: string;
 	app_id: string;
 	secret: string;
-	mysql: ConnectionOptions;
+	mysql: MySQLConfig;
 	api: APIConfig;
 	memoryTrack: boolean;
+}
+
+export interface MySQLConfig {
+	host: string,
+	user: string,
+	password: string,
+	database: string,
+	port: number
 }
 
 export interface APIConfig {

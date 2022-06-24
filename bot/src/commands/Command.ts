@@ -1,6 +1,7 @@
-import { ApplicationCommandData, ApplicationCommandOptionData, CommandInteraction, MessageEmbed } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, MessageEmbed } from "discord.js";
 import ExtendedClient from "../client/ExtendedClient";
 import { CommandOptions } from "../types/Commands";
+import { FeatureList } from "../types/Features";
 
 export default class Command {
     client: ExtendedClient;
@@ -8,7 +9,7 @@ export default class Command {
     description: string;
     options: ApplicationCommandOptionData[];
     defaultPermission: boolean;
-    category: string;
+    category: FeatureList;
 
     constructor(client: ExtendedClient, options: CommandOptions) {
         this.client = client;

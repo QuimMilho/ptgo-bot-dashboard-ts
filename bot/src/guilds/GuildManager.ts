@@ -1,11 +1,11 @@
-import { Collection, MessageEmbed, Snowflake } from 'discord.js';
+import { Collection, Snowflake } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
-import { Features } from '../types/Features';
+import { FeatureList, Features } from '../types/Features';
 import fs from 'fs';
 
 export default class GuildManager {
 	client: ExtendedClient;
-	guilds: Collection<string, Features>;
+	private guilds: Collection<string, Features>;
 
 	constructor(client: ExtendedClient) {
 		this.client = client;
@@ -82,7 +82,7 @@ export default class GuildManager {
 				warns: { maxWarnings: 3, muteTime: 24, warnExpires: 3 },
 			},
 			polls: { active: false },
-			public: { public: false },
+			public: { active: false },
 			reactionroles: { messages: [], active: false },
 			serverlist: { messages: [], servers: [], active: false },
 			serverstats: { inServer: '', online: '', active: false },
@@ -109,6 +109,7 @@ export default class GuildManager {
 				},
 				roles: { forbiden: [], moderator: [], staff: [] },
 			},
+			general: { active: true },
 		};
 		this.guilds.set(guildId, features);
 		if (!fs.existsSync(process.cwd() + '/config/guilds'))
@@ -118,5 +119,11 @@ export default class GuildManager {
 			JSON.stringify(features, null, 4)
 		);
 		console.log(`Criada config file para a guild com id ${guildId}`);
+	}
+
+	hasFeature(guildId: Snowflake, feature: FeatureList) {
+		const temp: Features = this.guilds.get(guildId);
+		if (temp[feature.name].active) return true;
+		return false;
 	}
 }

@@ -1,6 +1,7 @@
 import { PassportStatic } from 'passport';
 import { Strategy } from 'passport-discord';
 import ExtendedClient from '../client/ExtendedClient';
+import { DBUser } from '../types/Database';
 
 export default function DiscordStrategy(
 	client: ExtendedClient,
@@ -9,11 +10,11 @@ export default function DiscordStrategy(
 	passport.serializeUser((user, done) => done(null, user));
 
 	passport.deserializeUser(async (token: UserInfo, done) => {
-		const result = await this.client.mysql.query(
+		const result = await this.client.query(
 			'SELECT * FROM users WHERE clientId LIKE ?',
 			[token.clientId]
 		);
-		const user = result[0][0];
+		const user: DBUser = result[0];
 		return user ? done(null, user) : done(null, null);
 	});
 
@@ -25,7 +26,33 @@ export default function DiscordStrategy(
 				callbackURL: client.config.api.callbackURL,
 				scope: ['identify'],
 			},
-			async (accessToken, refreshToken, profile, done) => {}
+			async (accessToken, refreshToken, profile, done) => {
+				const user: DBUser = {
+					avatar: profile.avatar,
+					clientId: profile.id,
+					token: accessToken,
+					refreshToken,
+					id: undefined,
+					tag: `${profile.username}#${profile.discriminator}`,
+				};
+				const results: DBUser[] = await client.query(
+					'SELECT id FROM users WHERE clientId LIKE ?',
+					[user.clientId]
+				);
+				console.log(results);
+				if (results.length === 0)
+					client.query(
+						'INSERT INTO users (clientId, token, refreshToken, avatar, tag) VALUES (?, ?, ?, ?, ?)',
+						[
+							user.clientId,
+							user.token,
+							user.refreshToken,
+							user.avatar,
+							user.tag,
+						]
+					);
+				done(null, user);
+			}
 		)
 	);
 }

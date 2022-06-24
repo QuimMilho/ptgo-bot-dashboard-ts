@@ -9,8 +9,7 @@ export default class extends Event {
 
     override run = (interaction: Interaction) => {
         if (interaction.isCommand()) {
-            const cmdInteraction: CommandInteraction = interaction;
-            cmdInteraction.reply({content: 'Something here', ephemeral: true});
+            this.client.commandManager.executeCommand(interaction);
         }
     }
 }

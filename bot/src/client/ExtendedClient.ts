@@ -27,9 +27,18 @@ export default class ExtendedClient extends Client {
 		this.server = new Server(this);
 	}
 
-	createConnection() {
+	private createConnection() {
 		console.log(this.config.mysql);
 		this.mysql = MySQL.createConnection(this.config.mysql);
-		console.log('MySQL connection created!')
+		console.log('MySQL connection created!');
+	}
+
+	async query(query: string, elements: any[]) {
+		return new Promise<any[]>((resolve, reject) => {
+			this.mysql.query(query, elements, (err, res: any[], fields) => {
+				if (err) reject(err);
+				else resolve(res);
+			});
+		});
 	}
 }

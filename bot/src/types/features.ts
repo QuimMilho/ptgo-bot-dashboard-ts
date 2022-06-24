@@ -23,7 +23,8 @@ export interface FeatureList {
 		| 'polls'
 		| 'forms'
 		| 'serverlist'
-		| 'stafflist';
+		| 'stafflist'
+		| 'general';
 }
 
 export interface Features {
@@ -43,18 +44,20 @@ export interface Features {
 	forms: FormOptions;
 	serverlist: ServerListOptions;
 	stafflist: StaffListOptions;
+	general: Feature;
+}
+
+export interface Feature {
+	active: boolean;
 }
 
 /* Public */
 
-export interface PublicOptions {
-	public: boolean;
-}
+export interface PublicOptions extends Feature {}
 
 /* Moderation */
 
-export interface ModerationOptions {
-	active: boolean;
+export interface ModerationOptions extends Feature {
 	automod: AutoModOptions;
 	warns: WarningsOptions;
 	timedPunitions: boolean;
@@ -82,8 +85,7 @@ export interface WarningsOptions {
 
 /* Logs */
 
-export interface LogsOptions {
-	active: boolean;
+export interface LogsOptions extends Feature {
 	user: Snowflake[];
 	chat: Snowflake[];
 	message: Snowflake[];
@@ -94,8 +96,7 @@ export interface LogsOptions {
 
 /* Join Message */
 
-export interface JoinMessageOptions {
-	active: boolean;
+export interface JoinMessageOptions extends Feature {
 	channels: JoinMessageChannelOptions;
 	messages: JoinMessageMessageOptions;
 }
@@ -115,8 +116,7 @@ export interface JoinMessageMessageOptions {
 
 /* Leave Message */
 
-export interface LeaveMessageOptions {
-	active: boolean;
+export interface LeaveMessageOptions extends Feature {
 	logs: Snowflake[];
 	messages: LeaveMessageMessageOptions;
 }
@@ -129,8 +129,7 @@ export interface LeaveMessageMessageOptions {
 
 /* Levels */
 
-export interface LevelOptions {
-	active: boolean;
+export interface LevelOptions extends Feature {
 	channel: Snowflake[];
 	logs: Snowflake[];
 	multipliers: MultiplierOptions[];
@@ -149,8 +148,7 @@ export interface LevelRolesOptions {
 
 /* Tickets */
 
-export interface TicketOptions {
-	active: boolean;
+export interface TicketOptions extends Feature {
 	createChannel: CreateTicketChannelOptions;
 	roles: TicketRolesOptions;
 	openMessage: OpenMessageTicketOptions;
@@ -181,24 +179,21 @@ export interface OpenMessageButtonTicketOptions {
 
 /* Server Stats */
 
-export interface ServerStatsOptions {
-	active: boolean;
+export interface ServerStatsOptions extends Feature {
 	online: Snowflake;
 	inServer: Snowflake;
 }
 
 /* Member Stats */
 
-export interface MemberStatsOptions {
-	active: boolean;
+export interface MemberStatsOptions extends Feature {
 	roles: Snowflake[];
 	logs: Snowflake[];
 }
 
 /* Reaction Roles */
 
-export interface ReactionRoleOptions {
-	active: boolean;
+export interface ReactionRoleOptions extends Feature {
 	messages: ReactionRoleMessageOptions[];
 }
 
@@ -214,27 +209,21 @@ export interface ReactionRoleEmojisOptions {
 
 /* Anouncements */
 
-export interface AnounceOptions {
-	active: boolean;
+export interface AnounceOptions extends Feature {
 	managerRoles: Snowflake[];
 }
 
 /* Giveaways */
 
-export interface GiveAwayOptions {
-	active: boolean;
-}
+export interface GiveAwayOptions extends Feature {}
 
 /* Polls */
 
-export interface PollOptions {
-	active: boolean;
-}
+export interface PollOptions extends Feature {}
 
 /* Forms */
 
-export interface FormOptions {
-	active: boolean;
+export interface FormOptions extends Feature {
 	logs: Snowflake[];
 	managerRoles: Snowflake[];
 	forms: FormsOptions[];
@@ -286,10 +275,9 @@ export interface FormButtonOptions {
 
 /* Server List */
 
-export interface ServerListOptions {
-	active: boolean;
-	servers: ServerOptions[],
-	messages: Snowflake[]
+export interface ServerListOptions extends Feature {
+	servers: ServerOptions[];
+	messages: Snowflake[];
 }
 
 export interface ServerOptions {
@@ -299,10 +287,9 @@ export interface ServerOptions {
 
 /* Staff list */
 
-export interface StaffListOptions {
-	active: boolean;
-	cargos: CargoOptions[],
-	messages: Snowflake[]
+export interface StaffListOptions extends Feature {
+	cargos: CargoOptions[];
+	messages: Snowflake[];
 }
 
 export interface CargoOptions {
