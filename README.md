@@ -8,7 +8,7 @@
   * [Criar a database](#bcriar-a-databaseb)
   * [Criar as tabelas](#bcriar-as-tabelasb)
 * [Configuração](#configuração)
-  * [Configuração da API do Discord]()
+  * [Configuração da API do Discord](#configuração-da-api-do-discord)
   * [API](#api)
   * [MySQL](#mysql-1)
 
