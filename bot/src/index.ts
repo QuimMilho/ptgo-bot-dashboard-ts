@@ -6,6 +6,7 @@ let close = false;
 
 const configPath = process.cwd() + '/config/bot.json';
 const publicPath = process.cwd() + '/public';
+const certsPath = process.cwd() + '/certs';
 
 if (!fs.existsSync(configPath)) {
 	const configDefault: ClientConfig = {
@@ -46,6 +47,16 @@ if (close) process.exit(1);
 
 const configString = fs.readFileSync(configPath);
 const config: ClientConfig = JSON.parse(configString.toString());
+
+if (!fs.existsSync(certsPath) && config.api.https) {
+	fs.mkdirSync(certsPath);
+	close = true;
+	console.log(
+		'Coloca os certificados na pasta /certs com os nomes ssl.pem e key.pem!'
+	);
+}
+
+if (close) process.exit(1);
 
 const client = new ExtendedClient(
 	{
