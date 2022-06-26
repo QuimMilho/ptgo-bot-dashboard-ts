@@ -43,7 +43,7 @@ export default class Server {
 
 		DiscordStrategy(this.client, this.passport); //Por acabar!
 
-		this.port = this.client.config.api.port | 3000;
+		this.port = this.client.config.api.port || 3000;
 
 		this.app.use('/api', apiRouter);
 		this.app.get('/', this.sendIndexHTML);
