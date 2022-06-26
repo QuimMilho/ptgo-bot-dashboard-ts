@@ -98,6 +98,8 @@ Para começar deves ir ao [Portal de Developers do Discord](https://discord.com/
 
 `token` - na aba `Bot` vai aparecer um botão onde está escrito `ADD BOT`. Quando clicares no botão vai-te aparecer `TOKEN` em baixo do nome do bot. (Informação sensível. Deve ser resetado em caso de divulgação!)
 
+Na aba `Bot` tens de ativar os seguintes `INTENTS`: `PRESENCE`, `SERVER MEMBERS` e por fim, `MESSAGE CONTENT`. Nesta aba, tens também uma opção chamada `PUBLIC BOT`. Se esta opção estiver ativada, qualquer pessoa pode adicionar o bot onde quiser.
+
 Para acabar, na aba `oAuth2/General` tens um botão chamado `ADD REDIRECT` que vai fazer aparecer em cima uma caixa de texto. Nessa caixa de texto deves colocar o url do site e acrescentar: `/api/auth/login/redirect`. (Ex. `https://ptgo.pt/api/auth/login/redirect`)
 
 ### API
@@ -132,4 +134,8 @@ Esta configuração é fácil e pode ser feita à escolha do utilizador.
 
 Para obteres a última versão do site tens de ir pela consola à pasta `site` e executar o comando `npm run build`. Isto vai gerar uma pasta `site/build`. Tens de copiar o conteúdo dessa pasta para a pasta `bot/public` que é gerada após a primeira execução do bot!
 
-Para copiares estando na pasta `site` pela consola podes fazer o comando `cp ./build`
+Para copiares estando na pasta `site` pela consola podes fazer o comando `cp -r ./build/. ../bot/public/.` em linux!
+
+## Convidar o bot
+
+Para convidares o bot para uma guild tens de ir ao [Portal de Developers do Discord](https://discord.com/developers/applications) e escolher a aplicação do mesmo. Na aba `OAuth2/URL Generator`, tens de escolher os scopes `bot` e `application.commands` e em seguida copiar e abrir o link que vai ser gerado em baixo. Em seguida basta escolheres o servidor em que queres adicionar o bot.
