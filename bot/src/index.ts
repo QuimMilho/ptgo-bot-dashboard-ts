@@ -2,7 +2,10 @@ import fs from 'fs';
 import ExtendedClient from './client/ExtendedClient';
 import { ClientConfig } from './types/Config';
 
+let close = false;
+
 const configPath = process.cwd() + '/config/bot.json';
+const publicPath = process.cwd() + '/public';
 
 if (!fs.existsSync(configPath)) {
 	const configDefault: ClientConfig = {
@@ -30,8 +33,16 @@ if (!fs.existsSync(configPath)) {
 	console.log(
 		'Criados ficheiros de configuração!\nPreenche antes de executares novamente o bot!'
 	);
-	process.exit(1);
+	close = true;
 }
+
+if (!fs.existsSync(publicPath)) {
+	fs.mkdirSync(publicPath);
+	console.log('Criada pasta pública do site!');
+	close = true;
+}
+
+if (close) process.exit(1);
 
 const configString = fs.readFileSync(configPath);
 const config: ClientConfig = JSON.parse(configString.toString());

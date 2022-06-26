@@ -11,6 +11,7 @@
   - Configuração da API do Discord
   - API
   - MySQL
+- [Site](#site)
 
 ## Pré-requesitos
 
@@ -126,3 +127,9 @@ Esta configuração é fácil e pode ser feita à escolha do utilizador.
 `password` - Password de acesso ao servidor de MySQL
 
 `port` - Porta onde o servidor de MySQL está a correr. (Default: 3306)
+
+## Site
+
+Para obteres a última versão do site tens de ir pela consola à pasta `site` e executar o comando `npm run build`. Isto vai gerar uma pasta `site/build`. Tens de copiar o conteúdo dessa pasta para a pasta `bot/public` que é gerada após a primeira execução do bot!
+
+Para copiares estando na pasta `site` pela consola podes fazer o comando `cp ./build`
