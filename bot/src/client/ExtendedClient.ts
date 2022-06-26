@@ -1,5 +1,6 @@
 import { Client, ClientOptions } from 'discord.js';
 import MySQL, { Connection } from 'mysql';
+import { resolve } from 'path';
 import CommandManager from '../commands/CommandManager';
 import EventManager from '../events/EventManager';
 import GuildManager from '../guilds/GuildManager';
@@ -18,7 +19,10 @@ export default class ExtendedClient extends Client {
 		super(options);
 
 		this.config = config;
-		this.createConnection();
+		this.createConnection().then((v) => {
+			if (v) console.log('MySQL Connection complete!');
+			else console.log('Alguma coisa aconteceu!');
+		});
 
 		// Start Managers
 		this.guildManager = new GuildManager(this);
@@ -27,9 +31,14 @@ export default class ExtendedClient extends Client {
 		this.server = new Server(this);
 	}
 
-	private createConnection() {
+	private async createConnection() {
 		this.mysql = MySQL.createConnection(this.config.mysql);
-		console.log('MySQL connection created!');
+		return new Promise((resolve, reject) => {
+			this.mysql.connect((err) => {
+				if (err) reject(err);
+				else resolve(true);
+			});
+		});
 	}
 
 	async query(query: string, elements: any[]) {
