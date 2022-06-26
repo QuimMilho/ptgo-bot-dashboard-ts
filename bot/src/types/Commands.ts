@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionData } from "discord.js";
-import { FeatureList } from "./Features";
+import { FeatureList } from "./Feature";
 
 export interface CommandOptions {
     name: string;

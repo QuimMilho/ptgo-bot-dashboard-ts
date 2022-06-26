@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionData, CommandInteraction, MessageEmbed } from "discord.js";
 import ExtendedClient from "../client/ExtendedClient";
 import { CommandOptions } from "../types/Commands";
-import { FeatureList } from "../types/Features";
+import { FeatureList } from "../types/Feature";
 
 export default class Command {
     client: ExtendedClient;

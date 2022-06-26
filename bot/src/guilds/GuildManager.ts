@@ -1,6 +1,6 @@
 import { Collection, Snowflake } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
-import { FeatureList, Features } from '../types/Features';
+import { FeatureList, Features } from '../types/Feature';
 import fs from 'fs';
 
 export default class GuildManager {
