@@ -62,6 +62,23 @@ CREATE TABLE users (
 );
 ```
 
+### <b>Criar o Utilizador</b>
+
+#### <b>Consola</b>
+
+Executa os seguintes comandos na consola para criar um utilizador a atribuir as permissões que são necessárias! Deves trocar `newuser` pelo nome que queres para o utilizador e `database` pelo nome da database!
+
+```
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+GRANT INSERT, DELETE, UPDATE, SELECT ON database.* TO 'newuser'@'localhost';
+```
+
+#### <b>PHP My Admin</b>
+
+Pelo PHP My Admin esta configuração é muito mais fácil.
+
+Vai a `Contas de utilizador` e clica em `Adicionar conta de utilizador`. Aqui tens de colocar um nome no utilizador, uma palavra passe e adicionar as permissões `INSERT`, `SELECT`, `UPDATE` e `DELETE`.
+
 ## Configuração
 
 Quando se executa a aplicação pela primeira vez, um ficheiro de configuração é gerado na pasta `config`. Este deve ser editado antes de se executar uma segunda vez o bot.

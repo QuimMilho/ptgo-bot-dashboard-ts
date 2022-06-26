@@ -24,7 +24,20 @@ export default class Server {
 		this.app.use(express.urlencoded({ extended: true }));
 
 		const MySQLSessionStore = MySQLStore(session);
-		const sessionStore = new MySQLSessionStore({}, this.client.mysql);
+		const sessionStore = new MySQLSessionStore(
+			{
+				createDatabaseTable: true,
+				schema: {
+					tableName: 'sessions',
+					columnNames: {
+						session_id: 'sessionId',
+						data: 'data',
+						expires: 'expires',
+					},
+				},
+			},
+			this.client.mysql
+		);
 
 		this.app.use(
 			session.default({
