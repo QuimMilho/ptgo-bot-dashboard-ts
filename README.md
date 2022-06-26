@@ -2,15 +2,15 @@
 
 ## Índice
 
-* [Pré-Requesitos](#pré-requesitos)
-* [Como instalar](#como-instalar)
-* [MySQL](#mysql)
-  * Criar a database
-  * Criar as tabelas
-* [Configuração](#configuração)
-  * Configuração da API do Discord
-  * API
-  * MySQL
+- [Pré-Requesitos](#pré-requesitos)
+- [Como instalar](#como-instalar)
+- [MySQL](#mysql)
+  - Criar a database
+  - Criar as tabelas
+- [Configuração](#configuração)
+  - Configuração da API do Discord
+  - API
+  - MySQL
 
 ## Pré-requesitos
 
@@ -89,13 +89,15 @@ Quando se executa a aplicação pela primeira vez, um ficheiro de configuração
 
 ### Configuração da API do discord
 
-Para começar deves ir ao [Portal de Developers do Discord](https://discord.com/developers/applications) e criar uma aplicação. Quando criares essa aplicação, vais encontrar as seguintes informações: 
+Para começar deves ir ao [Portal de Developers do Discord](https://discord.com/developers/applications) e criar uma aplicação. Quando criares essa aplicação, vais encontrar as seguintes informações:
 
 `app_id` - na aba `General Information` da página da aplicação pode-se ver o `APPLICATION ID`.
 
 `secret` - na aba `OAuth2/General` pode-se encontrar o `CLIENT SECRET`. (Informação sensível. Deve ser resetado em caso de divulgação!)
 
 `token` - na aba `Bot` vai aparecer um botão onde está escrito `ADD BOT`. Quando clicares no botão vai-te aparecer `TOKEN` em baixo do nome do bot. (Informação sensível. Deve ser resetado em caso de divulgação!)
+
+Para acabar, na aba `oAuth2/General` tens um botão chamado `ADD REDIRECT` que vai fazer aparecer em cima uma caixa de texto. Nessa caixa de texto deves colocar o url do site e acrescentar: `/api/auth/login/redirect`. (Ex. `https://ptgo.pt/api/auth/login/redirect`)
 
 ### API
 
@@ -109,9 +111,9 @@ Esta configuração é fácil e pode ser feita à escolha do utilizador.
 
 `callbackURL` - url da página inicial do website (ex: https://bot.ptgo.pt:8443) Como construir:
 
-* Se tiveres `https = true` deves começar com `https://`, caso contrário deves usar `http://`
-* Em seguida deves colocar o ip/dns, podendo este ser `bot.ptgo.pt`, `1.1.1.1` ou apenas `ptgo.pt`.
-* Por fim, se tiveres um servidor `https` e a porta for `443` ou um servidor `http` e a porta for `80` não precisas de fazer mais nada. Caso contrário terás de adicionar `:porta` ao url.
+- Se tiveres `https = true` deves começar com `https://`, caso contrário deves usar `http://`
+- Em seguida deves colocar o ip/dns, podendo este ser `bot.ptgo.pt`, `1.1.1.1` ou apenas `ptgo.pt`.
+- Por fim, se tiveres um servidor `https` e a porta for `443` ou um servidor `http` e a porta for `80` não precisas de fazer mais nada. Caso contrário terás de adicionar `:porta` ao url.
 
 ### MySQL
 

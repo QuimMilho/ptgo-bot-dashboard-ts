@@ -103,6 +103,7 @@ export default class GuildManager {
 						timeStamp: null,
 						title: null,
 						url: null,
+						footer: null,
 					},
 					message:
 						'Boas $mention$, espera que um $moderator$ venha aqui falar contigo!',

@@ -1,0 +1,99 @@
+$embed-background-color: #2f3136;
+$discord-link-color: #46aff5;
+$discord-gray-color: #d6d5d9;
+
+.embed {
+	background-color: $embed-background-color;
+	border-radius: 5px;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+		'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	color: white;
+	padding: 10px;
+    width: fit-content;
+	max-width: 70%;
+	font-size: 12px;
+	display: flex;
+
+	.embedLeftSide {
+		vertical-align: top;
+
+		.embedAuthor {
+			margin-bottom: 5px;
+			font-weight: 500;
+
+			a {
+				color: $discord-link-color;
+				text-decoration: none;
+				vertical-align: middle;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			span {
+				vertical-align: middle;
+			}
+
+			img {
+				width: 12px;
+				height: 12px;
+				border-radius: 7px;
+				margin-right: 6px;
+				border: 1px white solid;
+			}
+		}
+
+		.embedTitle {
+			font-size: 15px;
+			font-weight: 600;
+			margin-bottom: 5px;
+
+			a {
+				color: $discord-link-color;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.embedDescription {
+			margin-bottom: 5px;
+
+			p {
+				margin: 1px 0;
+				color: $discord-gray-color;
+			}
+		}
+
+		.embedFields {
+			.embedFieldLine {
+				.embedField {
+					h1 {
+						font-weight: 600;
+						margin-top: 8px;
+						margin-bottom: 5px;
+						font-size: 12px;
+					}
+
+					p {
+						margin: 1px 0;
+						color: $discord-gray-color;
+					}
+				}
+			}
+		}
+	}
+
+	.embedRightSide {
+		vertical-align: top;
+        margin-left: 10px;
+
+		.embedThumbnail {
+			max-width: 100px;
+			max-height: 100px;
+		}
+	}
+}

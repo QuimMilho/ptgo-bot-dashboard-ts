@@ -28,7 +28,6 @@ export default class ExtendedClient extends Client {
 	}
 
 	private createConnection() {
-		console.log(this.config.mysql);
 		this.mysql = MySQL.createConnection(this.config.mysql);
 		console.log('MySQL connection created!');
 	}

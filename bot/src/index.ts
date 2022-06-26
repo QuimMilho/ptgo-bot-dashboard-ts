@@ -24,6 +24,9 @@ if (!fs.existsSync(configPath)) {
 		token: '',
 		memoryTrack: false,
 	};
+	const dirPath = process.cwd() + '/config';
+	if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath);
+	fs.writeFileSync(configPath, JSON.stringify(configDefault, null, 4));
 	console.log(
 		'Criados ficheiros de configuração!\nPreenche antes de executares novamente o bot!'
 	);
@@ -53,3 +56,5 @@ const client = new ExtendedClient(
 );
 
 client.login(config.token);
+
+export default client;

@@ -10,7 +10,7 @@ export default function DiscordStrategy(
 	passport.serializeUser((user, done) => done(null, user));
 
 	passport.deserializeUser(async (token: UserInfo, done) => {
-		const result = await this.client.query(
+		const result = await client.query(
 			'SELECT * FROM users WHERE clientId LIKE ?',
 			[token.clientId]
 		);
@@ -23,7 +23,7 @@ export default function DiscordStrategy(
 			{
 				clientID: client.config.app_id,
 				clientSecret: client.config.secret,
-				callbackURL: client.config.api.callbackURL,
+				callbackURL: `${client.config.api.callbackURL}/api/auth/login/redirect`,
 				scope: ['identify'],
 			},
 			async (accessToken, refreshToken, profile, done) => {
@@ -39,7 +39,6 @@ export default function DiscordStrategy(
 					'SELECT id FROM users WHERE clientId LIKE ?',
 					[user.clientId]
 				);
-				console.log(results);
 				if (results.length === 0)
 					client.query(
 						'INSERT INTO users (clientId, token, refreshToken, avatar, tag) VALUES (?, ?, ?, ?, ?)',

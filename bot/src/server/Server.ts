@@ -64,7 +64,7 @@ export default class Server {
 
 	private startHTTP() {
 		this.app.listen(this.port, () =>
-			console.log('Server listening to http://localhost:3000')
+			console.log(`Server listening to http://localhost:${this.port}`)
 		);
 	}
 
