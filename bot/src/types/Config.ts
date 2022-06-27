@@ -8,11 +8,11 @@ export interface ClientConfig {
 }
 
 export interface MySQLConfig {
-	host: string,
-	user: string,
-	password: string,
-	database: string,
-	port: number
+	host: string;
+	user: string;
+	password: string;
+	database: string;
+	port: number;
 }
 
 export interface APIConfig {

@@ -11,13 +11,13 @@ export interface CustomEmbed {
 	title: string | null;
 	description: string | null;
 	url: string | null;
-	timeStamp: boolean | Date | null;
+	timeStamp: boolean | Date | number | null;
 	color: ColorResolvable;
 	fields: CustomEmbedField[];
-    thumbnail: string | null;
-    image: string | null;
-    author: CustomEmbedAuthor | null;
-    footer: CustomEmbedFooter | null;
+	thumbnail: string | null;
+	image: string | null;
+	author: CustomEmbedAuthor | null;
+	footer: CustomEmbedFooter | null;
 }
 
 export interface CustomEmbedField {
@@ -27,27 +27,27 @@ export interface CustomEmbedField {
 }
 
 export interface CustomEmbedAuthor {
-    name: string;
-    iconURL: string | null;
-    url: string | null;
+	name: string;
+	iconURL: string | null;
+	url: string | null;
 }
 
 export interface CustomEmbedFooter {
-    text: string;
-    iconURL: string | null;
+	text: string;
+	iconURL: string | null;
 }
 
 export interface CustomButtons {
-    label: string;
-    style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'LINK';
-    customId: string | null;
-    emoji: EmojiResolvable;
-    disabled: boolean;
-    url: string | null;
+	label: string;
+	style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'LINK';
+	customId: string | null;
+	emoji: EmojiResolvable;
+	disabled: boolean;
+	url: string | null;
 }
 
 export interface CustomFiles {
-    data: string | number | boolean | Buffer | null;
-    attachment: string | null;
-    name: string;
+	data: string | number | boolean | Buffer | null;
+	attachment: string | null;
+	name: string;
 }

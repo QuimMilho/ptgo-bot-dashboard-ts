@@ -26,7 +26,6 @@ export default class Server {
 		const MySQLSessionStore = MySQLStore(session);
 		const sessionStore = new MySQLSessionStore(
 			{
-				createDatabaseTable: true,
 				schema: {
 					tableName: 'sessions',
 					columnNames: {

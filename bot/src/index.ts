@@ -48,8 +48,6 @@ if (close) process.exit(1);
 const configString = fs.readFileSync(configPath);
 const config: ClientConfig = JSON.parse(configString.toString());
 
-console.log(config);
-
 if (!fs.existsSync(certsPath) && config.api.https) {
 	fs.mkdirSync(certsPath);
 	close = true;

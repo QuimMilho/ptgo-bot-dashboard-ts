@@ -37,12 +37,14 @@ async function getChannels(guild: Guild) {
 		channelList.push({
 			id: channel.id,
 			name: channel.name,
-			parent: {
-				id: channel.parent.id,
-				name: channel.parent.name,
-				parent: null,
-				type: channel.parent.type,
-			},
+			parent: channel.parent
+				? {
+						id: channel.parent.id,
+						name: channel.parent.name,
+						parent: null,
+						type: channel.parent.type,
+				  }
+				: null,
 			type: channel.type,
 		});
 	}

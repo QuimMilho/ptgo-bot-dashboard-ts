@@ -9,13 +9,14 @@ $discord-gray-color: #d6d5d9;
 		'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	color: white;
 	padding: 10px;
-    width: fit-content;
 	max-width: 70%;
 	font-size: 12px;
 	display: flex;
+	width: min-content;
 
 	.embedLeftSide {
 		vertical-align: top;
+		max-height: 100%;
 
 		.embedAuthor {
 			margin-bottom: 5px;
@@ -83,6 +84,25 @@ $discord-gray-color: #d6d5d9;
 						color: $discord-gray-color;
 					}
 				}
+			}
+		}
+
+		.embedImage {
+			max-width: 300px;
+			max-height: 200px;
+		}
+
+		.embedFooter {
+			display: flex;
+			font-size: 10px;
+			color: $discord-gray-color;
+
+			img {
+				width: 8px;
+				height: 8px;
+				border-radius: 5px;
+				margin-right: 6px;
+				border: 1px white solid;
 			}
 		}
 	}
