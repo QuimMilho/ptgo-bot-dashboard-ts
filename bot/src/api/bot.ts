@@ -6,6 +6,10 @@ const router = Router();
 
 router.get('/info', authenticated, async (req, res) => {
 	const client: ExtendedClient = (await import('..')).default;
+
+	const guilds = client.guilds.fetch();
+	if (!guilds) return res.sendStatus(400);
+
 	const botInfo = {
 		nServers: client.guilds.cache.size,
 		upTime: client.uptime,

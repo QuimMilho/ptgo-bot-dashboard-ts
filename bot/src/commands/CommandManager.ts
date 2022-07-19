@@ -48,7 +48,8 @@ export default class CommandManager {
         await guild.commands.set(commands);
     }
 
-	async executeCommand(interaction: CommandInteraction) {
+	async executeCommand(interaction: CommandInteraction) { 
+		await interaction.deferReply();
 		this.commands.get(interaction.commandName).run(interaction);
 	}
 }

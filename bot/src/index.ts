@@ -56,7 +56,7 @@ if (!fs.existsSync(certsPath) && config.api.https) {
 	);
 }
 
-if (close) process.exit(1);
+if (close) process.exit(1); 
 
 const client = new ExtendedClient(
 	{

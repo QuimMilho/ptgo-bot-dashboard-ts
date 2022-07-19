@@ -59,7 +59,7 @@ export default class Server {
 
 		this.app.use('/api', apiRouter);
 		this.app.get('/', this.sendIndexHTML);
-		this.app.get('*', this.sendPublicFiles);
+		this.app.get('*', this.sendPublicFiles, this.sendIndexHTML);
 
 		this.client.config.api.https ? this.startHTTPS() : this.startHTTP();
 	}
@@ -67,7 +67,7 @@ export default class Server {
 	private startHTTPS() {
 		console.log(this.port);
 		const certs = {
-			cert: fs.readFileSync(process.cwd() + '/certs/ssl.pem'),
+			cert: fs.readFileSync(process.cwd() + '/certs/ssl.pem'), 
 			key: fs.readFileSync(process.cwd() + '/certs/key.pem'),
 		};
 		https.createServer(certs, this.app).listen(this.port, () => {
@@ -81,9 +81,9 @@ export default class Server {
 		);
 	}
 
-	private sendPublicFiles(req: Request, res: Response) {
+	private sendPublicFiles(req: Request, res: Response, next: Function) {
 		const path = process.cwd() + `/public/${req.params[0]}`;
-		if (!fs.existsSync(path)) return res.sendStatus(401);
+		if (!fs.existsSync(path)) return next();
 		res.status(200).sendFile(path);
 	}
 

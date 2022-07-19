@@ -215,11 +215,15 @@ export interface AnounceOptions extends Feature {
 
 /* Giveaways */
 
-export interface GiveAwayOptions extends Feature {}
+export interface GiveAwayOptions extends Feature {
+	managerRoles: Snowflake[];
+}
 
 /* Polls */
 
-export interface PollOptions extends Feature {}
+export interface PollOptions extends Feature {
+	managerRoles: Snowflake[];
+}
 
 /* Forms */
 

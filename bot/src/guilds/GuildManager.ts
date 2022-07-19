@@ -1,6 +1,6 @@
-import { Collection, Snowflake } from 'discord.js';
+import { Collection, Guild, Snowflake } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
-import { FeatureList, Features } from '../types/Feature';
+import { FeatureList, Features } from '../types/Features';
 import fs from 'fs';
 
 export default class GuildManager {
@@ -29,7 +29,7 @@ export default class GuildManager {
 		const features: Features = {
 			anouncements: { managerRoles: [], active: false },
 			forms: { forms: [], logs: [], managerRoles: [], active: false },
-			giveaway: { active: false },
+			giveaway: { active: false, managerRoles: [] },
 			joinmessage: {
 				channels: { invites: [], logs: [] },
 				messages: {
@@ -81,7 +81,7 @@ export default class GuildManager {
 				timedPunitions: true,
 				warns: { maxWarnings: 3, muteTime: 24, warnExpires: 3 },
 			},
-			polls: { active: false },
+			polls: { active: false, managerRoles: [] },
 			public: { active: false },
 			reactionroles: { messages: [], active: false },
 			serverlist: { messages: [], servers: [], active: false },
@@ -126,5 +126,45 @@ export default class GuildManager {
 		const temp: Features = this.guilds.get(guildId);
 		if (temp[feature.name].active) return true;
 		return false;
+	}
+
+	getFeatures(guildId: Snowflake) {
+		const temp: Features = this.guilds.get(guildId);
+		return temp;
+	}
+
+	setFeatures(guild: Guild, features: Features) {
+		const oldFeatures = this.guilds.get(guild.id);
+		let commands = false;
+
+		if (
+			oldFeatures.anouncements.active != features.anouncements.active ||
+			oldFeatures.forms.active != features.forms.active ||
+			oldFeatures.general.active != features.general.active ||
+			oldFeatures.giveaway.active != features.giveaway.active ||
+			oldFeatures.joinmessage.active != features.joinmessage.active ||
+			oldFeatures.leavemessage.active != features.leavemessage.active ||
+			oldFeatures.level.active != features.level.active ||
+			oldFeatures.logs.active != features.logs.active ||
+			oldFeatures.memberstats.active != features.memberstats.active ||
+			oldFeatures.moderation.active != features.moderation.active ||
+			oldFeatures.polls.active != features.polls.active ||
+			oldFeatures.public.active != features.public.active ||
+			oldFeatures.reactionroles.active != features.reactionroles.active ||
+			oldFeatures.serverlist.active != features.serverlist.active ||
+			oldFeatures.serverstats.active != features.serverstats.active ||
+			oldFeatures.stafflist.active != features.stafflist.active ||
+			oldFeatures.ticket.active != features.ticket.active
+		)
+			commands = true;
+		this.guilds.set(guild.id, features);
+
+		fs.writeFileSync(
+			process.cwd() + `/config/guilds/${guild.id}.json`,
+			JSON.stringify(features, null, 4)
+		);
+		console.log(`Alterada config file para a guild ${guild.name}`);
+
+		if (commands) this.client.commandManager.setCommands(guild);
 	}
 }

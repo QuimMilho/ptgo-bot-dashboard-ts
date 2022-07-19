@@ -51,7 +51,7 @@ Cria uma database com o nome discord.
 
 Para criar as tabelas executa os comandos que se encontram no bloco a baixo. Estas devem ter os nomes exatamente como está escrito para evitar erros!
 
-```
+```sql
 CREATE TABLE users (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     clientId VARCHAR(20),
@@ -66,6 +66,16 @@ CREATE TABLE sessions (
 	`expires` int(11) unsigned NOT NULL,
 	`data` mediumtext COLLATE utf8mb4_bin,
 	PRIMARY KEY (`session_id`)
+);
+
+CREATE TABLE permaRoles (
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	guildId VARCHAR(20),
+	clientId VARCHAR(20),
+	roleId VARCHAR(20),
+	timeDone DATETIME,
+	expires DATETIME,
+	expired BOOLEAN
 );
 ```
 

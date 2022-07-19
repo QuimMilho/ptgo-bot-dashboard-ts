@@ -25,14 +25,15 @@ export default class EventManager {
 
 			for (let h = 0; h < events.length; h++) {
 				const eventFile = events[h];
-				const eventClass = (await import(`${path}/${category}/${eventFile}`)).default;
+				const eventClass = (await import(`${path}/${category}/${eventFile}`))
+					.default;
 
 				const event: Event = new eventClass(this.client);
 
 				this.events.set(event.name, event);
 				this.client.on(event.name, event.run);
 
-                console.log(`Event ${event.name} registered!`);
+				console.log(`Event ${event.name} registered!`);
 			}
 		}
 	}
