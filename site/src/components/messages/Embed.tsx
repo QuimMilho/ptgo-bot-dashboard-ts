@@ -118,7 +118,7 @@ function EmbedFields(props: { fields: CustomEmbedField[] }) {
 					{l.map((f) => (
 						<div className="embedField">
 							<h1>{f.name}</h1>
-							{f.label.split('\n').map((l) => (
+							{f.label?.split('\n').map((l) => (
 								<p>{l}</p>
 							))}
 						</div>

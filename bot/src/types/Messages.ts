@@ -21,19 +21,19 @@ export interface CustomEmbed {
 }
 
 export interface CustomEmbedField {
-	name: string;
-	label: string;
+	name: string | null;
+	label: string | null;
 	inLine: boolean | null;
 }
 
 export interface CustomEmbedAuthor {
-	name: string;
+	name: string | null;
 	iconURL: string | null;
 	url: string | null;
 }
 
 export interface CustomEmbedFooter {
-	text: string;
+	text: string | null;
 	iconURL: string | null;
 }
 

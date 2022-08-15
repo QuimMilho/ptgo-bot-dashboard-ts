@@ -166,7 +166,35 @@ Esta configuração é fácil e pode ser feita à escolha do utilizador.
 
 ## Site
 
-Para obteres a última versão do site tens de ir pela consola à pasta `site` e executar o comando `npm run build`. Isto vai gerar uma pasta `site/build`. Tens de copiar o conteúdo dessa pasta para a pasta `bot/public` que é gerada após a primeira execução do bot!
+NOTA: Sempre que o site for atualizado isto tem de ser feito!
+
+Dentro da pasta `site/src` vais encontrar um ficheiro chamado `index.tsx`. Neste ficheiro vais ter algo semelhante com isto:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const APIURL = 'http://localhost';
+
+export default APIURL;
+
+const root = ReactDOM.createRoot(
+	document.getElementById('root') as HTMLElement
+);
+root.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
+);
+
+reportWebVitals();
+```
+
+Onde está escrito `const APIURL = 'http://localhost';` tens de alterar o que está entre '' para o url do site!
+
+Em seguida, para obteres os ficheiros necessários do site tens de ir pela consola à pasta `site` e executar o comando `npm run build`. Isto vai gerar uma pasta `site/build`. Tens de copiar o conteúdo dessa pasta para a pasta `bot/public` que é gerada após a primeira execução do bot!
 
 Para copiares estando na pasta `site` pela consola podes fazer o comando `cp -r ./build/. ../bot/public/.` em linux!
 

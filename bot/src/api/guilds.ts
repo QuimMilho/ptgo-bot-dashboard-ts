@@ -20,6 +20,7 @@ router.get('/info/:id', authenticated, async (req, res) => {
 
 	const data: GuildInfo = {
 		id: guild.id,
+		icon: guild.iconURL(),
 		memberCount: guild.memberCount,
 		channels: channels,
 		members: members,

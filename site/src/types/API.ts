@@ -7,6 +7,7 @@ export interface BotInfo {
 
 export interface GuildInfo {
 	id: Snowflake;
+	icon: string;
 	memberCount: number;
 	premiumSubscriptionCount: number;
 	channels: ChannelInfo[];
@@ -58,9 +59,21 @@ export interface ExtendedMemberInfo {
 		| 'MUTED'
 		| 'BANNED'
 	)[];
+	premium: Date | undefined;
 }
 
 export interface APIUserInfo {
+	servers: APIUserGuildsInfo[];
+	user: APIDiscordUserInfo;
+}
+
+export interface APIDiscordUserInfo {
+	username: string | null;
+	discriminator: string | null;
+	avatarURL: string | null;
+}
+
+export interface APIUserGuildsInfo {
 	guild: GuildInfo;
 	member: ExtendedMemberInfo;
 }

@@ -1,0 +1,43 @@
+$background-color: #292B2F;
+$nav-background-color: #202020;
+$content-color: #2F3136;
+
+.guildProfile {
+    color: white;
+    background-color: $nav-background-color;
+    margin: 20px;
+    border-radius: 10px;
+
+    .guildProfileInfoContainer {
+        display: flex;
+        flex-direction: row;
+
+        img {
+            width: 70px;
+            height: 70px;
+            margin: 20px;
+            margin-left: auto;
+        }
+
+        .guildProfileInfo {
+            margin: 10px;
+            text-align: center;
+            margin-right: auto;
+        }
+    }
+
+    .guildProfileButtons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 0 10px 10px 10px;
+        
+        button {
+            background-color: $nav-background-color;
+            padding: 8px;
+            margin: 5px;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+    }
+}

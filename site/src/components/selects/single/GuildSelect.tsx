@@ -1,10 +1,10 @@
 import { Snowflake } from 'discord.js';
 import React from 'react';
-import { APIUserInfo } from '../../../types/API';
+import { APIUserGuildsInfo } from '../../../types/API';
 import Select from 'react-select';
 
 function GuildSelect(props: {
-	guilds: APIUserInfo[];
+	guilds: APIUserGuildsInfo[];
 	value: Snowflake | null;
 	onChange: Function | undefined;
 	clearable: boolean | undefined;

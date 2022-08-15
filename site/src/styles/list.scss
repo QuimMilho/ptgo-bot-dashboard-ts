@@ -1,0 +1,43 @@
+$background-color: #292b2f;
+$content-color: #2f3136;
+
+.listElement {
+	display: flex;
+	flex-direction: column;
+	border-bottom: white solid 1px;
+	color: white;
+	margin: 3px;
+
+	.firstLine {
+
+		span {
+			color: white;
+			margin: 5px;
+		}
+
+		button {
+			padding: 5px;
+			border: darken(white, 3) solid 2px;
+			background-color: white;
+			border-radius: 3px;
+			color: $background-color;
+			
+		}
+	}
+
+	.secondLine {
+		margin-top: 10px;
+
+		span {
+			color: black;
+			background-color: lightgray;
+			padding: 3px;
+            margin: 2px;
+		}
+	}
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}

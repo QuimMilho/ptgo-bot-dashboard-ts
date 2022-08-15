@@ -46,6 +46,7 @@ router.get('/info/:guildId', authenticated, async (req, res) => {
 						name: role.name,
 				  }
 				: null,
+			premium: member.premiumSince,
 		});
 	}
 	memberInfo.sort((a, b) => {
@@ -86,6 +87,7 @@ router.get('/info/:guildId/:id', authenticated, async (req, res) => {
 						name: role.name,
 				  }
 				: null,
+			premium: member.premiumSince,
 		};
 	} else {
 		const user = await client.users.fetch(id).catch(console.log);
@@ -100,6 +102,7 @@ router.get('/info/:guildId/:id', authenticated, async (req, res) => {
 			username: user.username,
 			permissions: await getUserPerms(client, guild, user),
 			highestRole: null,
+			premium: undefined,
 		};
 	}
 	res.status(200).send(memberInfo);
@@ -114,7 +117,16 @@ router.get('/punitions/:guildId/:id', (req, res) => {});
 router.get('/', authenticated, async (req, res) => {
 	const client: ExtendedClient = (await import('..')).default;
 	const guilds = await client.guilds.fetch().catch(console.log);
-	const data: APIUserInfo[] = [];
+	const user = await client.users.fetch(req.user.clientId).catch(console.log);
+	if (!user) return res.sendStatus(404);
+	const data: APIUserInfo = {
+		servers: [],
+		user: {
+			avatarURL: user.displayAvatarURL(),
+			discriminator: user.discriminator,
+			username: user.username,
+		},
+	};
 	if (!guilds) return res.send(500);
 	for (let i = 0; i < guilds.size; i++) {
 		const guild = await guilds.at(i).fetch().catch(console.log);
@@ -138,7 +150,8 @@ router.get('/', authenticated, async (req, res) => {
 			members: members,
 			premiumSubscriptionCount: guild.premiumSubscriptionCount,
 			roles: roles,
-			name: guild.name
+			name: guild.name,
+			icon: guild.icon,
 		};
 
 		let memberInfo: ExtendedMemberInfo;
@@ -158,6 +171,7 @@ router.get('/', authenticated, async (req, res) => {
 				id: member.id,
 				permissions: getMemberPerms(client, guild, member),
 				username: user.username,
+				premium: member.premiumSince,
 			};
 		} else {
 			memberInfo = {
@@ -169,10 +183,11 @@ router.get('/', authenticated, async (req, res) => {
 				id: user.id,
 				permissions: await getUserPerms(client, guild, user),
 				username: user.username,
+				premium: undefined,
 			};
 		}
 
-		data.push({ guild: info, member: memberInfo });
+		data.servers.push({ guild: info, member: memberInfo });
 	}
 	res.status(200).send(data);
 });

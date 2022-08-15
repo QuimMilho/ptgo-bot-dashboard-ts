@@ -1,0 +1,41 @@
+$background-color: #202020;
+$buttonLogin: #5e66f4;
+$buttonLogout: #e24446;
+
+.navBar {
+	background-color: $background-color;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+
+	img {
+		height: 30px;
+		margin: 13px;
+	}
+
+	button {
+		border: none;
+		background-color: $background-color;
+		color: white;
+		padding: 15px;
+        vertical-align: middle;
+        margin: 3px;
+	}
+
+	.login {
+		margin-left: auto;
+		background-color: $buttonLogin;
+		border: darken($buttonLogin, 5) solid 2px;
+		border-radius: 10px;
+	}
+
+	.logout {
+		margin-left: auto;
+		color: white;
+		button {
+			background-color: $buttonLogout;
+			border: darken($buttonLogout, 5) solid 2px;
+			border-radius: 10px;
+		}
+	}
+}
