@@ -9,12 +9,12 @@ function Folder(props: {
 	return (
 		<div className="folder">
 			<div
-				className="opener"
+				className="opener clickable"
 				onClick={() => (open ? setOpen(false) : setOpen(true))}
 			>
-				{props.label}
+				<span className="white bold">{props.label}</span>
 			</div>
-			<div style={{ display: open ? 'flex' : 'none' }}>{props.children}</div>
+			<div style={{ display: open ? 'flex' : 'none' }} className='openerData'>{props.children}</div>
 		</div>
 	);
 }

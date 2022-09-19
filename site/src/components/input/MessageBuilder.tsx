@@ -1,34 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/input.scss';
-import { APIUserGuildsInfo, GuildInfo } from '../../types/API';
-import { CustomEmbed, Messages } from '../../types/Messages';
+import { APIUserGuildsInfo } from '../../types/API';
+import { CustomEmbed, Mention, Messages } from '../../types/Messages';
 import MessageContentBuilder from './MessageContentBuilder';
 import { createCustomEmbed } from '../../utils/createObjects';
 import EmbedBuilder from './EmbedBuilder';
-import { generateRandomId } from '../../utils/random';
+import { guildInfoToMentions, processMentions } from '../../utils/process';
+import MessageContentBuilderPreview from './MessageContentBuilderPreview';
 
 function MessageBuilder(props: {
 	value: Messages;
-	onChange: Function | undefined;
+	onChange: ((v: Messages) => void) | undefined;
 	label: string | undefined;
 	guild: APIUserGuildsInfo;
 }) {
-	const message: Messages = { buttons: [], content: '', embeds: [], files: [] };
 	return (
 		<div className="messageBuilder">
 			<span className="white bold">Texto</span>
-			<div className="messageContent">
-				<MessageContentBuilder
-					guild={props.guild}
-					label={undefined}
-					onChange={(v: string) => {
-						const temp = { ...props.value };
-						temp.content = v;
-						if (props.onChange) props.onChange(temp);
-					}}
-					value={props.value?.content}
-				/>
-			</div>
+			<MessageContentBuilderPreview
+				value={props.value.content}
+				onChange={(v: string) => {
+					const temp = { ...props.value };
+					temp.content = v;
+					if (props.onChange) props.onChange(temp);
+				}}
+				guild={props.guild}
+			/>
 			<span className="white bold">Embeds</span>
 			<div className="messageEmbeds">
 				{props.value.embeds[0] ? (
@@ -42,6 +39,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[0] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -65,6 +63,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[1] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -88,6 +87,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[2] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -111,6 +111,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[3] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -134,6 +135,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[4] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -157,6 +159,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[5] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -180,6 +183,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[6] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -203,6 +207,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[7] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -226,6 +231,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[8] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {
@@ -249,6 +255,7 @@ function MessageBuilder(props: {
 								if (temp.embeds) temp.embeds[9] = v;
 								if (props.onChange) props.onChange(temp);
 							}}
+							data={undefined}
 						/>
 						<button
 							onClick={() => {

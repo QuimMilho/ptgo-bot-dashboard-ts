@@ -1,4 +1,4 @@
-import { ColorResolvable, EmojiResolvable } from 'discord.js';
+import { ColorResolvable, EmojiResolvable, Role, Snowflake } from 'discord.js';
 
 export interface Messages {
 	files: CustomFiles[];
@@ -37,6 +37,11 @@ export interface CustomEmbedFooter {
 	iconURL: string | null;
 }
 
+export interface CustomSmallButton {
+	label: string;
+	style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS';
+}
+
 export interface CustomButtons {
 	label: string;
 	style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'LINK';
@@ -49,5 +54,12 @@ export interface CustomButtons {
 export interface CustomFiles {
 	data: string | number | boolean | Buffer | null;
 	attachment: string | null;
+	name: string;
+}
+
+export interface Mention {
+	type: 'USER' | 'ROLE' | 'CHANNEL';
+	discriminator: string | undefined;
+	id: Snowflake;
 	name: string;
 }

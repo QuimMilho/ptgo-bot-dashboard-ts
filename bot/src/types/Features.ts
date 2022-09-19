@@ -4,7 +4,7 @@ import {
 	MessageEmbed,
 	Snowflake,
 } from 'discord.js';
-import { CustomEmbed } from './Messages';
+import { CustomEmbed, CustomSmallButton } from './Messages';
 
 export interface FeatureList {
 	name:
@@ -169,12 +169,7 @@ export interface TicketRolesOptions {
 export interface OpenMessageTicketOptions {
 	message: string;
 	embed: CustomEmbed;
-	button: OpenMessageButtonTicketOptions;
-}
-
-export interface OpenMessageButtonTicketOptions {
-	label: string;
-	color: 'PRIMARY' | 'SECUNDARY' | 'DANGER' | 'SUCCESS';
+	button: CustomSmallButton;
 }
 
 /* Server Stats */

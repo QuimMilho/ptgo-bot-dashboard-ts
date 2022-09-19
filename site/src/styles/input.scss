@@ -56,8 +56,26 @@
 	flex-direction: column;
 	border: solid white 2px;
 	border-radius: 15px;
+	margin: 15px;
 
 	.opener {
 		padding: 10px;
+	}
+
+	.openerData {
+		margin: 10px;
+	}
+}
+
+.messageBuilder {
+	width: 100%;
+}
+
+.messageContent {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+
+	.messageContentBuilderIn {
+		grid-column: 1/4;
 	}
 }

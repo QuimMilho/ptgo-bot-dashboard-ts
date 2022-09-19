@@ -8,14 +8,21 @@ import { ColorResolvable } from 'discord.js';
 import Checkbox from './Checkbox';
 import MessageContentBuilder from './MessageContentBuilder';
 import Embed from '../messages/Embed';
-import { generateRandomId } from '../../utils/random';
+import { guildInfoToMentions } from '../../utils/process';
 
 function EmbedBuilder(props: {
 	embed: CustomEmbed;
-	onChange: Function | undefined;
+	onChange: ((v: CustomEmbed) => void) | undefined;
 	label: string | undefined;
 	guild: APIUserGuildsInfo;
+	data: any | undefined;
 }) {
+	if (!props.embed.color) {
+		const temp = { ...props.embed };
+		temp.color = '#202225';
+		props.embed.color = '#202225';
+		if (props.onChange) props.onChange(temp);
+	}
 	return (
 		<div className="embedBuilder">
 			<div className="embedBuilderInfo">
@@ -105,56 +112,156 @@ function EmbedBuilder(props: {
 					guild={props.guild}
 				/>
 				<span className="bold white">Campos do Embed</span>
-				{props.embed?.fields.map((f) => {
-					let index = props.embed?.fields.indexOf(f);
-					return (
-						<div key={generateRandomId(16)}>
-							<span className="white">Campo {index === 0 || index ? index + 1 : 0}</span>
-							<SmallText
-								label="Título"
-								onChange={(val: string) => {
-									const temp = { ...props.embed };
-									if (temp.fields) temp.fields[index ? index : 0].name = val;
-									if (props.onChange) props.onChange(temp);
-								}}
-								value={props.embed?.fields.at(index ? index : 0)?.name}
-							/>
-							<MessageContentBuilder
-								label="Texto"
-								onChange={(val: string) => {
-									const temp = { ...props.embed };
-									if (temp.fields) temp.fields[index ? index : 0].label = val;
-									if (props.onChange) props.onChange(temp);
-								}}
-								value={props.embed?.fields.at(index ? index : 0)?.label}
-								guild={props.guild}
-							/>
-							<Checkbox
-								label="Na mesma linha"
-								onChange={(val: boolean) => {
-									const temp = { ...props.embed };
-									if (temp.fields) temp.fields[index ? index : 0].inLine = val;
-									if (props.onChange) props.onChange(temp);
-								}}
-								value={
-									props.embed?.fields[index ? index : 0].inLine as
-										| boolean
-										| undefined
-								}
-							/>
-							<br />
-							<button
-								onClick={() => {
-									const temp = { ...props.embed };
-									temp.fields.splice(index ? index : 0, 1);
-									if (props.onChange) props.onChange(temp);
-								}}
-							>
-								Remover campo
-							</button>
-						</div>
-					);
-				})}
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={0}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={1}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={2}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={3}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={4}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={5}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={6}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={7}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={8}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={9}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={10}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={11}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={12}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={13}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={14}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={15}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={16}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={17}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={18}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={19}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={20}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={21}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={22}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={23}
+					onChange={props.onChange}
+				/>
+				<EmbedFieldBuilder
+					embed={props.embed}
+					guild={props.guild}
+					index={24}
+					onChange={props.onChange}
+				/>
 				<br />
 				<button
 					onClick={() => {
@@ -201,10 +308,67 @@ function EmbedBuilder(props: {
 				/>
 			</div>
 			<div className="embedBuilderPreview">
-				<Embed embed={props.embed} />
+				<Embed
+					embed={props.embed}
+					mentions={guildInfoToMentions(props.guild)}
+					data={props.data}
+				/>
 			</div>
 		</div>
 	);
 }
 
 export default EmbedBuilder;
+
+function EmbedFieldBuilder(props: {
+	onChange: Function | undefined;
+	embed: CustomEmbed;
+	guild: APIUserGuildsInfo;
+	index: number;
+}) {
+	return props.embed.fields[props.index] ? (
+		<div>
+			<span className="white">Campo {props.index + 1}</span>
+			<SmallText
+				label="Título"
+				onChange={(val: string) => {
+					const temp = { ...props.embed };
+					if (temp.fields) temp.fields[props.index].name = val;
+					if (props.onChange) props.onChange(temp);
+				}}
+				value={props.embed?.fields.at(props.index)?.name}
+			/>
+			<MessageContentBuilder
+				label="Texto"
+				onChange={(val: string) => {
+					const temp = { ...props.embed };
+					if (temp.fields) temp.fields[props.index].label = val;
+					if (props.onChange) props.onChange(temp);
+				}}
+				value={props.embed?.fields.at(props.index)?.label}
+				guild={props.guild}
+			/>
+			<Checkbox
+				label="Na mesma linha"
+				onChange={(val: boolean) => {
+					const temp = { ...props.embed };
+					if (temp.fields) temp.fields[props.index].inLine = val;
+					if (props.onChange) props.onChange(temp);
+				}}
+				value={props.embed?.fields[props.index].inLine as boolean | undefined}
+			/>
+			<br />
+			<button
+				onClick={() => {
+					const temp = { ...props.embed };
+					temp.fields.splice(props.index, 1);
+					if (props.onChange) props.onChange(temp);
+				}}
+			>
+				Remover campo
+			</button>
+		</div>
+	) : (
+		<div />
+	);
+}

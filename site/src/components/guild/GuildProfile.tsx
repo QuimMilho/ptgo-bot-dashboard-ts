@@ -11,6 +11,7 @@ function GuildProfile(props: { guild: APIUserGuildsInfo | undefined }) {
 			<div className="guildProfileInfoContainer">
 				<img
 					src={props.guild.guild.icon ? props.guild.guild.icon : '/logo.png'}
+					alt={"Imagem de perfil"}
 				/>
 				<div className="guildProfileInfo">
 					<h1>{props.guild.guild.name}</h1>

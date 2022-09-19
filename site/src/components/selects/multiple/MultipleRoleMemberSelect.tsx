@@ -7,7 +7,7 @@ function MultipleRoleMemberSelect(props: {
 	roles: RoleInfo[];
 	members: MemberInfo[];
 	value: Snowflake[] | null;
-	onChange: Function | undefined;
+	onChange: ((v: Snowflake[]) => void) | undefined;
 	clearable: boolean | undefined;
 }) {
 	const options: { label: string; value: string; color: string }[] = [];

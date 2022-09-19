@@ -3,7 +3,6 @@ import { APIDiscordUserInfo } from '../../types/API';
 import '../../styles/nav.scss';
 import { FaDiscord } from 'react-icons/fa';
 
-import { useNavigate } from 'react-router-dom';
 import APIURL from '../..';
 
 function LoginButton(props: { user: APIDiscordUserInfo | undefined }) {

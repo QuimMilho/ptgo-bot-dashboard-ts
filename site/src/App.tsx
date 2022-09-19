@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/global.scss';
 import axios from 'axios';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -14,7 +14,7 @@ import Member from './components/pages/Member';
 let done = false;
 
 function App(): JSX.Element {
-	const [user, setUser] = useState<APIUserInfo>({
+	const [user, setUser] = useState<APIUserInfo | undefined>({
 		servers: [],
 		user: { avatarURL: null, discriminator: null, username: null },
 	});
@@ -29,9 +29,9 @@ function App(): JSX.Element {
 			<Navigation user={user?.user} />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/guild" element={<GuildList guilds={user.servers} />} />
-				<Route path="/guild/:id" element={<Guild guilds={user.servers} />} />
-				<Route path="/guild/:id/:page" element={<Guild guilds={user.servers} />} />
+				<Route path="/guild" element={<GuildList guilds={user?.servers} />} />
+				<Route path="/guild/:id" element={<Guild guilds={user?.servers} />} />
+				<Route path="/guild/:id/:page" element={<Guild guilds={user?.servers} />} />
 				<Route path="/member/:guildId/:memberId" element={<Member />} />
 				<Route path="/*" element={<NotFound />} />
 			</Routes>

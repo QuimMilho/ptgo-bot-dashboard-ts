@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { APIUserGuildsInfo, APIUserInfo } from '../../types/API';
+import { APIUserGuildsInfo } from '../../types/API';
 import GuildProfile from '../guild/GuildProfile';
 import NotFound from './NotFound';
 import '../../styles/guild.scss';

@@ -9,7 +9,7 @@ function Navigation(props: { user: APIDiscordUserInfo | undefined }) {
 	return (
 		<div className="navBar">
 			<a href="https://ptgo.pt">
-				<img src="/ptgo.png" />
+				<img src="/ptgo.png" alt='Imagem da PTGO' />
 			</a>
 			<button onClick={() => navigate('/')}>Home</button>
 			<button onClick={() => navigate('/guild')}>Guilds</button>

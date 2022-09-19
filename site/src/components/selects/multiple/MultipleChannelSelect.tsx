@@ -6,7 +6,7 @@ import { Snowflake } from 'discord.js';
 function MultipleChannelSelect(props: {
 	channels: ChannelInfo[];
 	value: Snowflake[] | null;
-	onChange: Function | undefined;
+	onChange: ((v: Snowflake[]) => void) | undefined;
 	clearable: boolean | undefined;
 }) {
 	const options: { label: string; value: string }[] = [];

@@ -32,7 +32,6 @@ button:hover {
 	min-height: 80vh;
 	width: 100%;
 	background-color: $content-color;
-	padding: 15px;
 }
 
 .error {
@@ -54,4 +53,22 @@ button:hover {
 
 textarea {
 	resize: none;
+}
+
+.clickable:hover {
+	cursor: pointer;
+}
+
+.flex {
+	display: flex;
+	flex-direction: column;
+}
+
+.widthMax {
+	width: 100%;
+}
+
+.small {
+	font-size: 8px;
+	line-height: 10px;
 }

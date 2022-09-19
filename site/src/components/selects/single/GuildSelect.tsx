@@ -6,7 +6,7 @@ import Select from 'react-select';
 function GuildSelect(props: {
 	guilds: APIUserGuildsInfo[];
 	value: Snowflake | null;
-	onChange: Function | undefined;
+	onChange: ((v: Snowflake) => void) | undefined;
 	clearable: boolean | undefined;
 }) {
 	const options: { label: string; value: string }[] = [];
@@ -19,9 +19,10 @@ function GuildSelect(props: {
 			options={options}
 			value={options.find((o) => o.value === props.value)}
 			isSearchable={true}
-			onChange={(value) =>
-				props.onChange ? props.onChange(value?.value) : undefined
-			}
+			onChange={(value) => {
+				if (!value?.value) return;
+				if (props.onChange) props.onChange(value.value);
+			}}
 			isClearable={props.clearable}
 		/>
 	);

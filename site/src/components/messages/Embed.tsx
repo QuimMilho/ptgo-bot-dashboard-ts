@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	CustomEmbed,
 	CustomEmbedAuthor,
 	CustomEmbedField,
 	CustomEmbedFooter,
+	Mention,
 } from '../../types/Messages';
 import '../../styles/embed.scss';
+import { processMentions } from '../../utils/process';
+import replaceString from 'string-placeholder';
 
-export interface EmbedProps {
+export interface EmbedProps {}
+
+function Embed(props: {
 	embed: CustomEmbed;
-}
-
-function Embed(props: EmbedProps) {
+	mentions: Mention[];
+	data: any | undefined;
+}) {
 	return (
 		<div
 			className="embed"
@@ -20,8 +25,16 @@ function Embed(props: EmbedProps) {
 			<div className="embedLeftSide">
 				<EmbedAuthor author={props.embed.author} />
 				<EmbedTitle title={props.embed.title} url={props.embed.url} />
-				<EmbedDescription description={props.embed.description} />
-				<EmbedFields fields={props.embed.fields} />
+				<EmbedDescription
+					description={props.embed.description}
+					mentions={props.mentions}
+					data={props.data}
+				/>
+				<EmbedFields
+					fields={props.embed.fields}
+					mentions={props.mentions}
+					data={props.data}
+				/>
 				<EmbedImage image={props.embed.image} />
 				<EmbedFooter
 					footer={props.embed.footer}
@@ -42,14 +55,22 @@ function EmbedAuthor(props: { author: CustomEmbedAuthor | null }) {
 		if (props.author.url) {
 			return (
 				<div className="embedAuthor">
-					{props.author.iconURL ? <img src={props.author.iconURL} /> : <div />}
+					{props.author.iconURL ? (
+						<img src={props.author.iconURL} alt={'Imagem do autor'} />
+					) : (
+						<div />
+					)}
 					<a href={props.author.url}>{props.author.name}</a>
 				</div>
 			);
 		} else {
 			return (
 				<div className="embedAuthor">
-					{props.author.iconURL ? <img src={props.author.iconURL} /> : <div />}
+					{props.author.iconURL ? (
+						<img src={props.author.iconURL} alt={'Imagem do autor'} />
+					) : (
+						<div />
+					)}
 					<span>{props.author.name}</span>
 				</div>
 			);
@@ -75,19 +96,29 @@ function EmbedTitle(props: { title: string | null; url: string | null }) {
 	);
 }
 
-function EmbedDescription(props: { description: string | null }) {
+function EmbedDescription(props: {
+	description: string | null;
+	mentions: Mention[];
+	data: any | undefined;
+}) {
 	return props.description ? (
 		<div className="embedDescription">
-			{props.description.split('\n').map((d) => (
-				<p>{d}</p>
-			))}
+			{replaceString(props.description, props.data, { before: '$', after: '$' })
+				.split('\n')
+				.map((d) => (
+					<p>{processMentions(d, props.mentions)}</p>
+				))}
 		</div>
 	) : (
 		<div />
 	);
 }
 
-function EmbedFields(props: { fields: CustomEmbedField[] }) {
+function EmbedFields(props: {
+	fields: CustomEmbedField[];
+	mentions: Mention[];
+	data: any | undefined;
+}) {
 	let lines: CustomEmbedField[][] = [];
 	let i = 0;
 	while (i < props.fields.length) {
@@ -118,9 +149,14 @@ function EmbedFields(props: { fields: CustomEmbedField[] }) {
 					{l.map((f) => (
 						<div className="embedField">
 							<h1>{f.name}</h1>
-							{f.label?.split('\n').map((l) => (
-								<p>{l}</p>
-							))}
+							{replaceString(f.label ? f.label : '', props.data, {
+								before: '$',
+								after: '$',
+							})
+								.split('\n')
+								.map((l) => (
+									<p>{processMentions(l, props.mentions)}</p>
+								))}
 						</div>
 					))}
 				</div>
@@ -130,7 +166,10 @@ function EmbedFields(props: { fields: CustomEmbedField[] }) {
 }
 
 function EmbedImage(props: { image: string | null }) {
-	if (props.image) return <img className="embedImage" src={props.image} />;
+	if (props.image)
+		return (
+			<img className="embedImage" src={props.image} alt={'Imagem do embed'} />
+		);
 	return <div />;
 }
 
@@ -155,7 +194,11 @@ function EmbedFooter(props: {
 	if (timeStamp && props.footer?.text) {
 		return (
 			<div className="embedFooter">
-				{props.footer.iconURL ? <img src={props.footer.iconURL} /> : <div />}
+				{props.footer.iconURL ? (
+					<img src={props.footer.iconURL} alt={'Imagem do rodapé'} />
+				) : (
+					<div />
+				)}
 				<span>{props.footer.text}</span>&nbsp; &#128900; &nbsp;
 				<span>{timeStamp}</span>
 			</div>
@@ -170,7 +213,11 @@ function EmbedFooter(props: {
 		} else {
 			return (
 				<div className="embedFooter">
-					{props.footer?.iconURL ? <img src={props.footer.iconURL} /> : <div />}
+					{props.footer?.iconURL ? (
+						<img src={props.footer.iconURL} alt={'Imagem do rodapé'} />
+					) : (
+						<div />
+					)}
 					<span>{props.footer?.text}</span>
 				</div>
 			);
@@ -180,6 +227,12 @@ function EmbedFooter(props: {
 
 function EmbedThumbnail(props: { thumbnail: string | null }) {
 	if (props.thumbnail)
-		return <img src={props.thumbnail} className="embedThumbnail" />;
+		return (
+			<img
+				src={props.thumbnail}
+				className="embedThumbnail"
+				alt={'Imagem da thumbnail'}
+			/>
+		);
 	return <div />;
 }

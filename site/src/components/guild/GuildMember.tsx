@@ -14,12 +14,20 @@ function GuildMember(props: { member: ExtendedMemberInfo; guildId: string }) {
 						: `${props.member.username}#${props.member.discriminator}`}
 				</span>
 				<button
-					onClick={() => navigate(`/member/${props.guildId}/${props.member.id}`)}
+					onClick={() =>
+						navigate(`/member/${props.guildId}/${props.member.id}`)
+					}
 				>
 					Aceder
 				</button>{' '}
 				<br />
-				{props.member.premium ? <img src="/booster.png" className='listBoosterImage' /> : undefined}
+				{props.member.premium ? (
+					<img
+						src="/booster.png"
+						className="listBoosterImage"
+						alt="Imagem de booster"
+					/>
+				) : undefined}
 				{props.member.premium ? (
 					<span>
 						Server booster desde: {props.member.premium.toLocaleString()}

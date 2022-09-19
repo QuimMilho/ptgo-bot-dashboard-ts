@@ -19,26 +19,35 @@ function GuildMembers(props: { guildId: string }) {
 	const [search, setSearch] = useState<string | null>(null);
 	useEffect(() => {
 		getMembers(setMembers, props.guildId);
-	});
+	}, [props.guildId]);
 	if (members.status === 0) {
 		return <Loading />;
 	} else if (members.status === 200) {
 		return (
 			<div className="content">
-				<div className='white'>
+				<div className="white">
 					Pesquisa:{' '}
 					<SmallText value={search} onChange={setSearch} label={undefined} />
 				</div>
-				<div className='list'>
+				<div className="list">
 					{[...members.members]
 						.filter(
 							(m) =>
 								search?.length === 0 ||
-								m.displayName.toLowerCase().includes(search ? search.toLowerCase() : '') ||
-								m.username.toLowerCase().includes(search ? search.toLowerCase() : '') ||
+								m.displayName
+									.toLowerCase()
+									.includes(search ? search.toLowerCase() : '') ||
+								m.username
+									.toLowerCase()
+									.includes(search ? search.toLowerCase() : '') ||
 								m.id.includes(search ? search : '')
 						)
-						.slice(0, showing > members.members.length ? members.members.length : showing)
+						.slice(
+							0,
+							showing > members.members.length
+								? members.members.length
+								: showing
+						)
 						.map((m) => (
 							<GuildMember member={m} guildId={props.guildId} key={m.id} />
 						))}

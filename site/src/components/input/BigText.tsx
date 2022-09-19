@@ -3,7 +3,7 @@ import '../../styles/input.scss';
 
 function BigText(props: {
 	value: string | number | undefined | null;
-	onChange: Function | undefined;
+	onChange: ((v: string) => void) | undefined;
 	label: string | undefined;
 	id: string | undefined;
 }) {

@@ -11,20 +11,22 @@ function Member(props: any) {
 	const [member, setMember] = useState(memberInfo);
 	useEffect(() => {
 		getMember(setMember, memberId ? memberId : '0', guildId ? guildId : '0');
-	});
-    const navigate = useNavigate();
+	}, [guildId, memberId]);
+	const navigate = useNavigate();
 	return (
 		<div className="guildProfile">
 			<div className="guildProfileInfoContainer">
 				<img
-					src={member.member?.displayAvatarURL ? member.member.displayAvatarURL : '/logo.png'}
+					src={
+						member.member?.displayAvatarURL
+							? member.member.displayAvatarURL
+							: '/logo.png'
+					}
+					alt={'Imagem do membro'}
 				/>
-				
 			</div>
 			<div className="guildProfileButtons">
-				<button
-					onClick={() => navigate(`/member/${guildId}/${memberId}/bans`)}
-				>
+				<button onClick={() => navigate(`/member/${guildId}/${memberId}/bans`)}>
 					Mutes e Bans
 				</button>
 				<button

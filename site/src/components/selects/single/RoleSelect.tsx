@@ -6,7 +6,7 @@ import Select from 'react-select';
 function RoleSelect(props: {
 	roles: RoleInfo[];
 	value: Snowflake | null;
-	onChange: Function | undefined;
+	onChange: ((v: Snowflake) => void) | undefined;
 	clearable: boolean;
 }) {
 	const options: { label: string; value: string; color: string }[] = [];
@@ -24,9 +24,10 @@ function RoleSelect(props: {
 			options={options}
 			value={options.find((o) => o.value === props.value)}
 			isSearchable={true}
-			onChange={(value) =>
-				props.onChange ? props.onChange(value?.value) : undefined
-			}
+			onChange={(value) => {
+				if (!value?.value) return;
+				if (props.onChange) props.onChange(value.value);
+			}}
 			isClearable={props.clearable}
 			styles={{
 				option: (provided, state) => {

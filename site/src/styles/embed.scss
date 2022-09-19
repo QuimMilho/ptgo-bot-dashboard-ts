@@ -13,6 +13,7 @@ $discord-gray-color: #d6d5d9;
 	font-size: 12px;
 	display: flex;
 	width: fit-content;
+	border: solid $discord-gray-color 2px;
 
 	.embedLeftSide {
 		vertical-align: top;
