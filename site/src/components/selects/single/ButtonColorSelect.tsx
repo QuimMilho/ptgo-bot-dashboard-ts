@@ -27,14 +27,7 @@ function ButtonColorSelect(props: {
 				if (props.onChange) props.onChange(value.value);
 			}}
 			isClearable={false}
-		/>
-	);
-}
-
-export default ButtonColorSelect;
-
-/*
-styles={{
+			styles={{
 				option: (provided, state) => {
 					return {
 						...provided,
@@ -48,4 +41,8 @@ styles={{
 					};
 				},
 			}}
-*/
+		/>
+	);
+}
+
+export default ButtonColorSelect;

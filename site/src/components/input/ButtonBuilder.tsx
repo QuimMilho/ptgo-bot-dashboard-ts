@@ -21,7 +21,6 @@ function ButtonBuilder(props: {
 				value={props.value.label}
 			/>
 			<br />
-			<br />
 			<span className="white">Cor do botão</span>
 			<ButtonColorSelect
 				onChange={(v) => {
