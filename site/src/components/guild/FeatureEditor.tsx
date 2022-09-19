@@ -168,7 +168,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Níveis</span>
+			<span className="white bold">Níveis (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.level.active}
@@ -224,7 +224,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Estatísticas do servidor</span>
+			<span className="white bold">Estatísticas do servidor (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.serverstats.active}
@@ -252,7 +252,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Estatísticas de membros</span>
+			<span className="white bold">Estatísticas de membros (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.memberstats.active}
@@ -280,7 +280,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Reaction Roles</span>
+			<span className="white bold">Reaction Roles (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.reactionroles.active}
@@ -308,7 +308,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Anúncios</span>
+			<span className="white bold">Anúncios (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.anouncements.active}
@@ -336,7 +336,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Giveaways</span>
+			<span className="white bold">Giveaways (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.giveaway.active}
@@ -364,7 +364,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Polls</span>
+			<span className="white bold">Polls (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.polls.active}
@@ -392,7 +392,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Formulários</span>
+			<span className="white bold">Formulários (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.forms.active}
@@ -420,7 +420,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Lista de servidores</span>
+			<span className="white bold">Lista de servidores (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.serverlist.active}
@@ -448,7 +448,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Lista de staffs</span>
+			<span className="white bold">Lista de staffs (Desenvolvimento)</span>
 			<br />
 			<Checkbox
 				value={props.value.stafflist.active}
