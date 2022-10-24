@@ -19,7 +19,7 @@
 		"passport": "^0.6.0",
 		"passport-discord": "^0.1.4",
 		"string-placeholder": "^1.0.2",
-		"toad-scheduler": "^1.6.1"
+		"toad-scheduler": "^2.0.0"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.13",
