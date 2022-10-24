@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { UserRequest } from '.';
 import ExtendedClient from '../client/ExtendedClient';
 import { authenticated } from '../strategies/authentication';
 import { getMemberPerms, getUserPerms } from '../strategies/permissions';
@@ -14,7 +15,7 @@ import { getChannels, getMembers, getRoles } from './guilds';
 
 const router = Router();
 
-router.get('/info/:guildId', authenticated, async (req, res) => {
+router.get('/info/:guildId', authenticated, async (req: UserRequest, res) => {
 	const { guildId } = req.params;
 	const client: ExtendedClient = (await import('..')).default;
 	const guild = await client.guilds.fetch(guildId).catch(console.log);
@@ -60,7 +61,7 @@ router.get('/info/:guildId', authenticated, async (req, res) => {
 	res.status(200).send(memberInfo);
 });
 
-router.get('/info/:guildId/:id', authenticated, async (req, res) => {
+router.get('/info/:guildId/:id', authenticated, async (req: UserRequest, res) => {
 	const { guildId, id } = req.params;
 	const client: ExtendedClient = (await import('..')).default;
 	const guild = await client.guilds.fetch(guildId).catch(console.log);
@@ -108,15 +109,15 @@ router.get('/info/:guildId/:id', authenticated, async (req, res) => {
 	res.status(200).send(memberInfo);
 });
 
-router.get('/tickets/:guildId', (req, res) => {});
+router.get('/tickets/:guildId', (req: UserRequest, res) => {});
 
-router.get('/tickets/:guildId/:id', (req, res) => {});
+router.get('/tickets/:guildId/:id', (req: UserRequest, res) => {});
 
-router.get('/punitions/:guildId', (req, res) => {});
+router.get('/punitions/:guildId', (req: UserRequest, res) => {});
 
-router.get('/punitions/:guildId/:id', (req, res) => {});
+router.get('/punitions/:guildId/:id', (req: UserRequest, res) => {});
 
-router.get('/', authenticated, async (req, res) => {
+router.get('/', authenticated, async (req: UserRequest, res) => {
 	const client: ExtendedClient = (await import('..')).default;
 	const guilds = await client.guilds.fetch().catch(console.log);
 	const user = await client.users.fetch(req.user.clientId).catch(console.log);

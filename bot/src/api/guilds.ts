@@ -1,5 +1,6 @@
 import { Guild } from 'discord.js';
 import { Router } from 'express';
+import { UserRequest } from '.';
 import ExtendedClient from '../client/ExtendedClient';
 import { authenticated } from '../strategies/authentication';
 import { getMemberPerms } from '../strategies/permissions';
@@ -7,7 +8,7 @@ import { ChannelInfo, GuildInfo, MemberInfo, RoleInfo } from '../types/API';
 
 const router = Router();
 
-router.get('/info/:id', authenticated, async (req, res) => {
+router.get('/info/:id', authenticated, async (req: UserRequest, res) => {
 	const { id } = req.params;
 	const client: ExtendedClient = (await import('..')).default;
 
@@ -31,7 +32,7 @@ router.get('/info/:id', authenticated, async (req, res) => {
 	res.status(200).send(data);
 });
 
-router.get('/features/:id', authenticated, async (req, res) => {
+router.get('/features/:id', authenticated, async (req: UserRequest, res) => {
 	const { id } = req.params;
 	const client: ExtendedClient = (await import('..')).default;
 
@@ -52,7 +53,7 @@ router.get('/features/:id', authenticated, async (req, res) => {
 	res.status(200).send(features);
 });
 
-router.post('/features/:id', authenticated, async (req, res) => {
+router.post('/features/:id', authenticated, async (req: UserRequest, res) => {
 	const { id } = req.params;
 	const client: ExtendedClient = (await import('..')).default;
 
