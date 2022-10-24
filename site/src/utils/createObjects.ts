@@ -60,7 +60,7 @@ export function createFormButton(index: number | undefined) {
 		label: 'Botão',
 		message: createCustomMessage(),
 		roles: [],
-		type: 'DANGER',
+		type: 'Danger',
 		index: index ? index : 0,
 	};
 	return button;

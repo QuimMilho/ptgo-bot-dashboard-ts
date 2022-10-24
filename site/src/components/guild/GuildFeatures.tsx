@@ -90,7 +90,13 @@ function GuildFeatures(props: {
 							/>
 							<br />
 							<br />
-							<button onClick={() => {}}>Guardar</button>
+							<button
+								onClick={() => {
+									APISetFeaures(features.features, props.guild.guild.id);
+								}}
+							>
+								Guardar
+							</button>
 						</div>
 					) : (
 						<Loading />
@@ -115,4 +121,13 @@ async function getFeatures(setFeatures: Function, id: string) {
 		withCredentials: true,
 	});
 	setFeatures({ status: info.status, features: info.data });
+}
+
+async function APISetFeaures(features: Features, id: string) {
+	const info = await axios({
+		method: 'POST',
+		url: `${APIURL}/api/guild/features/${id}`,
+		withCredentials: true,
+		data: features,
+	});
 }

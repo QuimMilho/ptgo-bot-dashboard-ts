@@ -1,6 +1,6 @@
 import { Client, ClientOptions } from 'discord.js';
 import MySQL, { Connection } from 'mysql';
-import { resolve } from 'path';
+import ButtonManager from '../buttons/ButtonManager';
 import CommandManager from '../commands/CommandManager';
 import EventManager from '../events/EventManager';
 import GuildManager from '../guilds/GuildManager';
@@ -9,6 +9,7 @@ import { ClientConfig } from '../types/Config';
 
 export default class ExtendedClient extends Client {
 	eventManager: EventManager;
+	buttonManager: ButtonManager;
 	commandManager: CommandManager;
 	guildManager: GuildManager;
 	mysql: Connection;
@@ -28,6 +29,7 @@ export default class ExtendedClient extends Client {
 		this.guildManager = new GuildManager(this);
 		this.eventManager = new EventManager(this);
 		this.commandManager = new CommandManager(this);
+		this.buttonManager = new ButtonManager(this);
 		this.server = new Server(this);
 	}
 

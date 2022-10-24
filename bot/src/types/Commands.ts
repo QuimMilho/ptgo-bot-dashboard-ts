@@ -87,3 +87,8 @@ export interface CustomCommandOptions {
 	minLength: number | null;
 	maxLength: number | null;
 }
+
+export interface ButtonOptions {
+	category: string;
+	command: string;
+}

@@ -67,7 +67,7 @@ router.post('/features/:id', authenticated, async (req, res) => {
 	if (!getMemberPerms(client, guild, member).includes('ADMINISTRATOR'))
 		return res.sendStatus(403);
 
-	client.guildManager.setFeatures(guild, req.body.features);
+	client.guildManager.setFeatures(guild, req.body);
 });
 
 export default router;

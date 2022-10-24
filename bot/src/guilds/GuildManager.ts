@@ -91,7 +91,7 @@ export default class GuildManager {
 				createChannel: { category: '', channel: '', selected: 'END' },
 				active: false,
 				openMessage: {
-					button: { label: 'Fechar', style: 'DANGER' },
+					button: { label: 'Fechar', style: 'Danger' },
 					embed: {
 						author: null,
 						color: null,

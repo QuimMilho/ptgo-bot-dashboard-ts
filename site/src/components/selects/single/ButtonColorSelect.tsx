@@ -2,20 +2,20 @@ import React from 'react';
 import Select from 'react-select';
 
 function ButtonColorSelect(props: {
-	value: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | null;
+	value: 'Danger' | 'Primary' | 'Secondary' | 'Success' | null;
 	onChange:
-		| ((v: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS') => void)
+		| ((v: 'Danger' | 'Primary' | 'Secondary' | 'Success') => void)
 		| undefined;
 }) {
 	const options: {
 		label: string;
-		value: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS';
+		value: 'Danger' | 'Primary' | 'Secondary' | 'Success';
 		color: string;
 	}[] = [
-		{ label: 'Verde', value: 'SUCCESS', color: '#4EA459' },
-		{ label: 'Vermelho', value: 'DANGER', color: '#E24546' },
-		{ label: 'Azul', value: 'PRIMARY', color: '#5E66F4' },
-		{ label: 'Cinzento', value: 'SECONDARY', color: '#50545C' },
+		{ label: 'Verde', value: 'Success', color: '#4EA459' },
+		{ label: 'Vermelho', value: 'Danger', color: '#E24546' },
+		{ label: 'Azul', value: 'Primary', color: '#5E66F4' },
+		{ label: 'Cinzento', value: 'Secondary', color: '#50545C' },
 	];
 	return (
 		<Select

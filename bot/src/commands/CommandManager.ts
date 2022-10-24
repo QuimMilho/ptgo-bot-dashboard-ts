@@ -1,11 +1,4 @@
-import {
-	ApplicationCommandDataResolvable,
-	Collection,
-	CommandInteraction,
-	Guild,
-	GuildResolvable,
-	Snowflake,
-} from 'discord.js';
+import { Collection, CommandInteraction, Guild } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
 import Command from './Command';
 
@@ -54,6 +47,7 @@ export default class CommandManager {
 				commands.push(this.commands.at(i));
 		}
 		await guild.commands.set(commands);
+		console.log(`Comandos registados para a guild ${guild.name}!`);
 	}
 
 	async executeCommand(interaction: CommandInteraction) {

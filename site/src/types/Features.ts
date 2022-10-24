@@ -258,7 +258,7 @@ export interface FormButtonOptions {
 	function: 'SEND_DM' | 'SEND_MESSAGE' | 'SEND_FORM';
 	message: Messages;
 	label: string;
-	type: 'SUCCESS' | 'PRIMARY' | 'SECONDARY' | 'DANGER';
+	type: 'Success' | 'Primary' | 'Secondary' | 'Danger';
 	roles: string[];
 	deleteAfter: boolean;
 	disableAfter: boolean;

@@ -37,12 +37,12 @@ export interface CustomEmbedFooter {
 
 export interface CustomSmallButton {
 	label: string;
-	style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS';
+	style: 'Danger' | 'Primary' | 'Secondary' | 'Success';
 }
 
 export interface CustomButtons {
 	label: string;
-	style: 'DANGER' | 'PRIMARY' | 'SECONDARY' | 'SUCCESS' | 'LINK';
+	style: 'Danger' | 'Primary' | 'Secondary' | 'Success' | 'Link';
 	customId: string | null;
 	emoji: string;
 	disabled: boolean;

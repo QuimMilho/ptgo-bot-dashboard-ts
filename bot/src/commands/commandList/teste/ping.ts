@@ -1,4 +1,9 @@
-import { CommandInteraction } from 'discord.js';
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	CommandInteraction,
+} from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
 import Command from '../../Command';
 
@@ -18,6 +23,15 @@ export default class extends Command {
 		const test = await this.client.query('SELECT * FROM users', []);
 		console.log(test);
 		interaction.editReply('Done!');
-		interaction.followUp({ content: 'Realmente bem feito!' });
+		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			new ButtonBuilder()
+				.setCustomId('forms-fill-1234')
+				.setLabel('teste')
+				.setStyle(ButtonStyle.Danger)
+		);
+		interaction.followUp({
+			content: 'Realmente bem feito!',
+			components: [row],
+		});
 	};
 }

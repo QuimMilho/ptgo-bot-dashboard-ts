@@ -10,6 +10,8 @@ export default class extends Event {
     override run = (interaction: Interaction) => {
         if (interaction.isCommand()) {
             this.client.commandManager.executeCommand(interaction);
+        } else if (interaction.isButton()) {
+            this.client.buttonManager.executeButton(interaction);
         }
     }
 }
