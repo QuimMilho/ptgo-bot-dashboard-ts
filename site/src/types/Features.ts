@@ -1,10 +1,4 @@
-import {
-	ColorResolvable,
-	EmojiResolvable,
-	MessageEmbed,
-	Snowflake,
-} from 'discord.js';
-import { CustomEmbed, CustomSmallButton } from './Messages';
+import { CustomEmbed, CustomSmallButton, Messages } from './Messages';
 
 export interface FeatureList {
 	name:
@@ -61,11 +55,11 @@ export interface ModerationOptions extends Feature {
 	automod: AutoModOptions;
 	warns: WarningsOptions;
 	timedPunitions: boolean;
-	mutedRoles: Snowflake[];
+	mutedRoles: string[];
 	banRoles: boolean;
-	bannedRoles: Snowflake[];
-	moderators: Snowflake[];
-	logs: Snowflake[];
+	bannedRoles: string[];
+	moderators: string[];
+	logs: string[];
 }
 
 export interface AutoModOptions {
@@ -74,7 +68,7 @@ export interface AutoModOptions {
 	discordInvites: boolean;
 	links: boolean;
 	duplicatedMessages: boolean;
-	autoDeleteMessages: Snowflake[];
+	autoDeleteMessages: string[];
 }
 
 export interface WarningsOptions {
@@ -86,12 +80,12 @@ export interface WarningsOptions {
 /* Logs */
 
 export interface LogsOptions extends Feature {
-	user: Snowflake[];
-	chat: Snowflake[];
-	message: Snowflake[];
-	role: Snowflake[];
-	invite: Snowflake[];
-	member: Snowflake[];
+	user: string[];
+	chat: string[];
+	message: string[];
+	role: string[];
+	invite: string[];
+	member: string[];
 }
 
 /* Join Message */
@@ -102,8 +96,8 @@ export interface JoinMessageOptions extends Feature {
 }
 
 export interface JoinMessageChannelOptions {
-	logs: Snowflake[];
-	invites: Snowflake[];
+	logs: string[];
+	invites: string[];
 }
 
 export interface JoinMessageMessageOptions {
@@ -117,7 +111,7 @@ export interface JoinMessageMessageOptions {
 /* Leave Message */
 
 export interface LeaveMessageOptions extends Feature {
-	logs: Snowflake[];
+	logs: string[];
 	messages: LeaveMessageMessageOptions;
 }
 
@@ -130,19 +124,19 @@ export interface LeaveMessageMessageOptions {
 /* Levels */
 
 export interface LevelOptions extends Feature {
-	channel: Snowflake[];
-	logs: Snowflake[];
+	channel: string[];
+	logs: string[];
 	multipliers: MultiplierOptions[];
 	rolesPerLevel: [];
 }
 
 export interface MultiplierOptions {
-	id: Snowflake;
+	id: string;
 	mult: number;
 }
 
 export interface LevelRolesOptions {
-	id: Snowflake;
+	id: string;
 	level: number;
 }
 
@@ -155,15 +149,15 @@ export interface TicketOptions extends Feature {
 }
 
 export interface CreateTicketChannelOptions {
-	category: Snowflake;
+	category: string;
 	selected: 'END' | 'ABOVE' | 'BELOW';
-	channel: Snowflake;
+	channel: string;
 }
 
 export interface TicketRolesOptions {
-	moderator: Snowflake[];
-	staff: Snowflake[];
-	forbiden: Snowflake[];
+	moderator: string[];
+	staff: string[];
+	forbiden: string[];
 }
 
 export interface OpenMessageTicketOptions {
@@ -175,15 +169,15 @@ export interface OpenMessageTicketOptions {
 /* Server Stats */
 
 export interface ServerStatsOptions extends Feature {
-	online: Snowflake;
-	inServer: Snowflake;
+	online: string;
+	inServer: string;
 }
 
 /* Member Stats */
 
 export interface MemberStatsOptions extends Feature {
-	roles: Snowflake[];
-	logs: Snowflake[];
+	roles: string[];
+	logs: string[];
 }
 
 /* Reaction Roles */
@@ -193,38 +187,38 @@ export interface ReactionRoleOptions extends Feature {
 }
 
 export interface ReactionRoleMessageOptions {
-	message: Snowflake;
+	message: string;
 	emojis: ReactionRoleEmojisOptions[];
 }
 
 export interface ReactionRoleEmojisOptions {
-	emoji: EmojiResolvable;
-	role: Snowflake;
+	emoji: string;
+	role: string;
 }
 
 /* Anouncements */
 
 export interface AnounceOptions extends Feature {
-	managerRoles: Snowflake[];
+	managerRoles: string[];
 }
 
 /* Giveaways */
 
 export interface GiveAwayOptions extends Feature {
-	managerRoles: Snowflake[];
+	managerRoles: string[];
 }
 
 /* Polls */
 
 export interface PollOptions extends Feature {
-	managerRoles: Snowflake[];
+	managerRoles: string[];
 }
 
 /* Forms */
 
 export interface FormOptions extends Feature {
-	logs: Snowflake[];
-	managerRoles: Snowflake[];
+	logs: string[];
+	managerRoles: string[];
 	forms: FormsOptions[];
 }
 
@@ -235,12 +229,12 @@ export interface FormsOptions {
 	delay: number;
 	answerDelay: number;
 	responseChat: ResponseChatFormOptions;
-	responseColor: ColorResolvable;
-	questionColor: ColorResolvable;
-	introColor: ColorResolvable;
-	buttons: [];
+	responseColor: string;
+	questionColor: string;
+	introColor: string;
+	buttons: FormButtonOptions[];
 	emojis: boolean;
-	blockedRoles: Snowflake[];
+	blockedRoles: string[];
 }
 
 export interface FormQuestionsOptions {
@@ -251,32 +245,33 @@ export interface FormQuestionsOptions {
 
 export interface ResponseChatFormOptions {
 	guild: {
-		id: Snowflake;
+		id: string;
 		name: string;
 	};
 	channel: {
-		id: Snowflake;
+		id: string;
 		name: string;
 	};
 }
 
 export interface FormButtonOptions {
-	id: string;
-	function: 'DM' | 'EMBED_DM' | 'SEND_MESSAGE' | 'SEND_EMBED' | 'SEND_FORM';
-	message: string | CustomEmbed;
+	function: 'SEND_DM' | 'SEND_MESSAGE' | 'SEND_FORM';
+	message: Messages;
 	label: string;
 	type: 'SUCCESS' | 'PRIMARY' | 'SECONDARY' | 'DANGER';
-	roles: Snowflake[];
+	roles: string[];
 	deleteAfter: boolean;
-	channel: Snowflake;
-	color: ColorResolvable;
+	disableAfter: boolean;
+	channel: string;
+	color: string;
+	index: number;
 }
 
 /* Server List */
 
 export interface ServerListOptions extends Feature {
 	servers: ServerOptions[];
-	messages: Snowflake[];
+	messages: string[];
 }
 
 export interface ServerOptions {
@@ -288,15 +283,15 @@ export interface ServerOptions {
 
 export interface StaffListOptions extends Feature {
 	cargos: CargoOptions[];
-	messages: Snowflake[];
+	messages: string[];
 }
 
 export interface CargoOptions {
-	id: Snowflake;
+	id: string;
 	staffs: StaffOptions[];
 }
 
 export interface StaffOptions {
-	id: Snowflake;
-	secondCargos: Snowflake[];
+	id: string;
+	secondCargos: string[];
 }

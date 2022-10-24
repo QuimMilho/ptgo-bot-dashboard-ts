@@ -1,10 +1,9 @@
-import { ColorResolvable } from 'discord.js';
 import React from 'react';
 import { TwitterPicker } from 'react-color';
 
 function ColorPicker(props: {
 	color: string;
-	onChange: ((v: ColorResolvable) => void) | undefined;
+	onChange: ((v: string) => void) | undefined;
 }) {
 	return (
 		<div>
@@ -38,7 +37,7 @@ function ColorPicker(props: {
 					'#7FFF00',
 				]}
 				onChange={(color, event) => {
-					if (props.onChange) props.onChange(color.hex as ColorResolvable);
+					if (props.onChange) props.onChange(color.hex as string);
 				}}
 			/>
 		</div>

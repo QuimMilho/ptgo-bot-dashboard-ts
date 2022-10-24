@@ -108,9 +108,11 @@ router.get('/info/:guildId/:id', authenticated, async (req, res) => {
 	res.status(200).send(memberInfo);
 });
 
-router.get('/mutes/:guildId/:id', (req, res) => {});
+router.get('/tickets/:guildId', (req, res) => {});
 
 router.get('/tickets/:guildId/:id', (req, res) => {});
+
+router.get('/punitions/:guildId', (req, res) => {});
 
 router.get('/punitions/:guildId/:id', (req, res) => {});
 

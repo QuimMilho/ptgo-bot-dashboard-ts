@@ -1,12 +1,11 @@
-import { Snowflake } from 'discord.js';
 import React from 'react';
 import { RoleInfo } from '../../../types/API';
 import Select from 'react-select';
 
 function RoleSelect(props: {
 	roles: RoleInfo[];
-	value: Snowflake | null;
-	onChange: ((v: Snowflake) => void) | undefined;
+	value: string | null;
+	onChange: ((v: string) => void) | undefined;
 	clearable: boolean;
 }) {
 	const options: { label: string; value: string; color: string }[] = [];

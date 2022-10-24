@@ -56,22 +56,22 @@ if (!fs.existsSync(certsPath) && config.api.https) {
 	);
 }
 
-if (close) process.exit(1); 
+if (close) process.exit(1);
 
 const client = new ExtendedClient(
 	{
 		intents: [
-			'GUILDS',
-			'GUILD_MEMBERS',
-			'GUILD_BANS',
-			'GUILD_EMOJIS_AND_STICKERS',
-			'GUILD_INVITES',
-			'GUILD_VOICE_STATES',
-			'GUILD_PRESENCES',
-			'GUILD_MESSAGES',
-			'GUILD_MESSAGE_REACTIONS',
-			'DIRECT_MESSAGES',
-			'DIRECT_MESSAGE_REACTIONS',
+			'Guilds',
+			'GuildMembers',
+			'GuildBans',
+			'GuildEmojisAndStickers',
+			'GuildInvites',
+			'GuildVoiceStates',
+			'GuildPresences',
+			'GuildMessages',
+			'GuildMessageReactions',
+			'DirectMessages',
+			'DirectMessageReactions',
 		],
 	},
 	config

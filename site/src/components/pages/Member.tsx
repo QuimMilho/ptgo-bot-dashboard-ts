@@ -24,15 +24,42 @@ function Member(props: any) {
 					}
 					alt={'Imagem do membro'}
 				/>
+				<div className="guildProfileInfo">
+					<h1>{member.member?.displayName}</h1>
+					<span>
+						Conta criada em:{' '}
+						{new Date(
+							member.member?.createdTimeStamp
+								? member.member?.createdTimeStamp
+								: 0
+						).toLocaleString()}
+					</span>
+					<br />
+					<span>
+						Username#Discriminador:{' '}
+						{`${member.member?.username}#${member.member?.discriminator}`}
+					</span>
+					<br />
+					{member.member?.premium ? (
+						<span>
+							Discord nitro desde: {member.member.premium.toLocaleString()}
+						</span>
+					) : undefined}
+				</div>
 			</div>
 			<div className="guildProfileButtons">
 				<button onClick={() => navigate(`/member/${guildId}/${memberId}/bans`)}>
 					Mutes e Bans
 				</button>
 				<button
-					onClick={() => navigate(`/member/${props.guild?.guild.id}/tickets`)}
+					onClick={() => navigate(`/member/${guildId}/${memberId}/tickets`)}
 				>
 					Tickets
+				</button>
+				<button
+					onClick={() => navigate(`/member/${guildId}/${memberId}/stats`)}
+				>
+					Estatísticas
 				</button>
 			</div>
 		</div>

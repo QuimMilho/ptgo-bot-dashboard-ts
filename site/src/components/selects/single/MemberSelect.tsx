@@ -1,12 +1,11 @@
-import { Snowflake } from 'discord.js';
 import React from 'react';
 import { MemberInfo } from '../../../types/API';
 import Select from 'react-select';
 
 function MemberSelect(props: {
 	members: MemberInfo[];
-	value: Snowflake | null;
-	onChange: ((v: Snowflake) => void) | undefined;
+	value: string | null;
+	onChange: ((v: string) => void) | undefined;
 	clearable: boolean;
 }) {
 	const options: { label: string; value: string }[] = [];

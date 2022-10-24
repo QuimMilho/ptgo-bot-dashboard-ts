@@ -26,7 +26,7 @@ router.get('/info/:id', authenticated, async (req, res) => {
 		members: members,
 		premiumSubscriptionCount: guild.premiumSubscriptionCount,
 		roles: roles,
-		name: guild.name
+		name: guild.name,
 	};
 	res.status(200).send(data);
 });
@@ -89,10 +89,10 @@ export async function getChannels(guild: Guild) {
 						id: channel.parent.id,
 						name: channel.parent.name,
 						parent: null,
-						type: channel.parent.type,
+						type: channel.parent.type.toString(),
 				  }
 				: null,
-			type: channel.type,
+			type: channel.type.toString(),
 		});
 	}
 	return channelList;

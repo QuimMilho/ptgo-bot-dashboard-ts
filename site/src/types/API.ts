@@ -1,12 +1,10 @@
-import { Snowflake } from 'discord.js';
-
 export interface BotInfo {
 	nServers: number;
 	upTime: number;
 }
 
 export interface GuildInfo {
-	id: Snowflake;
+	id: string;
 	icon: string;
 	memberCount: number;
 	premiumSubscriptionCount: number;
@@ -17,14 +15,26 @@ export interface GuildInfo {
 }
 
 export interface ChannelInfo {
-	id: Snowflake;
+	id: string;
 	name: string;
-	type: string;
+	type:
+		| 'AnnouncementThread'
+		| 'DM'
+		| 'GroupDM'
+		| 'GuildAnnouncement'
+		| 'GuildCategory'
+		| 'GuildDirectory'
+		| 'GuildForum'
+		| 'GuildStageVoice'
+		| 'GuildText'
+		| 'GuildVoice'
+		| 'PrivateThread'
+		| 'PublicThread';
 	parent: ChannelInfo | null;
 }
 
 export interface MemberInfo {
-	id: Snowflake;
+	id: string;
 	displayName: string;
 	displayAvatarURL: string;
 	username: string;
@@ -33,13 +43,13 @@ export interface MemberInfo {
 }
 
 export interface RoleInfo {
-	id: Snowflake;
+	id: string;
 	name: string;
 	colorHex: string;
 }
 
 export interface ExtendedMemberInfo {
-	id: Snowflake;
+	id: string;
 	displayName: string;
 	displayAvatarURL: string;
 	username: string;

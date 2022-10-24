@@ -22,11 +22,11 @@ function Guild(props: { guilds: APIUserGuildsInfo[] | undefined }) {
 	if (!guild) return <NotFound />;
 	return (
 		<div>
-			<GuildProfile guild={guild} />
+			<GuildProfile guild={guild} guilds={props.guilds} />
 			{page === 'tickets' ? <div>tickets</div> : undefined}
 			{page === 'bans' ? <div>bans</div> : undefined}
 			{page === 'members' ? <GuildMembers guildId={guild.guild.id} /> : undefined}
-			{page === 'features' ? <GuildFeatures guild={guild} /> : undefined}
+			{page === 'features' ? <GuildFeatures guild={guild} guilds={props.guilds} /> : undefined}
 		</div>
 	);
 }

@@ -4,7 +4,6 @@ import { APIUserGuildsInfo } from '../../types/API';
 import { CustomEmbed } from '../../types/Messages';
 import SmallText from './SmallText';
 import ColorPicker from './ColorPicker';
-import { ColorResolvable } from 'discord.js';
 import Checkbox from './Checkbox';
 import MessageContentBuilder from './MessageContentBuilder';
 import Embed from '../messages/Embed';
@@ -94,7 +93,7 @@ function EmbedBuilder(props: {
 				<span className="bold white">Cor do embed</span>
 				<ColorPicker
 					color={props.embed?.color as string}
-					onChange={(val: ColorResolvable) => {
+					onChange={(val: string) => {
 						const temp = { ...props.embed };
 						temp.color = val;
 						if (props.onChange) props.onChange(temp);

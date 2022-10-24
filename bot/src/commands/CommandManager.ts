@@ -1,4 +1,11 @@
-import { ApplicationCommandDataResolvable, Collection, CommandInteraction, Guild, GuildResolvable, Snowflake } from 'discord.js';
+import {
+	ApplicationCommandDataResolvable,
+	Collection,
+	CommandInteraction,
+	Guild,
+	GuildResolvable,
+	Snowflake,
+} from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
 import Command from './Command';
 
@@ -10,7 +17,7 @@ export default class CommandManager {
 
 	constructor(client: ExtendedClient) {
 		this.client = client;
-        this.commands = new Collection();
+		this.commands = new Collection();
 
 		this.loadCommands();
 	}
@@ -40,16 +47,17 @@ export default class CommandManager {
 	}
 
 	async setCommands(guild: Guild) {
-        let commands: Command[] = [];
-        for (let i = 0; i < this.commands.size; i++) {
-            const cmd = this.commands.at(i);
-			if (this.client.guildManager.hasFeature(guild.id, cmd.category)) commands.push(this.commands.at(i));
-        }
-        await guild.commands.set(commands);
-    }
+		let commands: Command[] = [];
+		for (let i = 0; i < this.commands.size; i++) {
+			const cmd = this.commands.at(i);
+			if (this.client.guildManager.hasFeature(guild.id, cmd.category))
+				commands.push(this.commands.at(i));
+		}
+		await guild.commands.set(commands);
+	}
 
-	async executeCommand(interaction: CommandInteraction) { 
-		await interaction.deferReply();
+	async executeCommand(interaction: CommandInteraction) {
+		await interaction.deferReply({ ephemeral: true });
 		this.commands.get(interaction.commandName).run(interaction);
 	}
 }

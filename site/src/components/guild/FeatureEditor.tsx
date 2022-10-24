@@ -39,6 +39,7 @@ function FeatureEditor(props: {
 	value: Features;
 	onChange: (v: Features) => void | undefined;
 	guild: APIUserGuildsInfo;
+	guilds: APIUserGuildsInfo[];
 }) {
 	return (
 		<div className="flex widthMax">
@@ -224,7 +225,9 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Estatísticas do servidor (Desenvolvimento)</span>
+			<span className="white bold">
+				Estatísticas do servidor (Desenvolvimento)
+			</span>
 			<br />
 			<Checkbox
 				value={props.value.serverstats.active}
@@ -252,7 +255,9 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Estatísticas de membros (Desenvolvimento)</span>
+			<span className="white bold">
+				Estatísticas de membros (Desenvolvimento)
+			</span>
 			<br />
 			<Checkbox
 				value={props.value.memberstats.active}
@@ -392,7 +397,7 @@ function FeatureEditor(props: {
 			)}
 			{/*  */}
 			<br />
-			<span className="white bold">Formulários (Desenvolvimento)</span>
+			<span className="white bold">Formulários</span>
 			<br />
 			<Checkbox
 				value={props.value.forms.active}
@@ -413,6 +418,7 @@ function FeatureEditor(props: {
 							if (props.onChange) props.onChange(temp);
 						}}
 						guild={props.guild}
+						guilds={props.guilds}
 					/>
 				</Folder>
 			) : (

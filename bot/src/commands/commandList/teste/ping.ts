@@ -7,7 +7,8 @@ export default class extends Command {
 		super(client, {
 			name: 'ping',
 			category: { name: 'general' },
-			defaultPermission: false,
+			defaultMemberPermissions: null,
+			dmPermission: false,
 			description: 'Comando teste',
 			options: [],
 		});
@@ -16,6 +17,7 @@ export default class extends Command {
 	run = async (interaction: CommandInteraction) => {
 		const test = await this.client.query('SELECT * FROM users', []);
 		console.log(test);
-		interaction.reply('Done!');
+		interaction.editReply('Done!');
+		interaction.followUp({ content: 'Realmente bem feito!' });
 	};
 }

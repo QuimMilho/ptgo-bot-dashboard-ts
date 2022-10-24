@@ -53,7 +53,7 @@ export default class Server {
 		this.app.use(passport.initialize());
 		this.app.use(passport.session());
 
-		DiscordStrategy(this.client, this.passport); //Por acabar!
+		DiscordStrategy(this.client, this.passport);
 
 		this.port = this.client.config.api.port || 3000;
 

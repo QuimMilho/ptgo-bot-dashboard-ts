@@ -1,4 +1,3 @@
-import { Snowflake } from 'discord.js';
 import React from 'react';
 import { APIUserGuildsInfo } from '../../../types/API';
 import { LogsOptions } from '../../../types/Features';
@@ -15,7 +14,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.chat = v;
                     if (props.onChange) props.onChange(temp);
@@ -27,7 +26,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.invite = v;
                     if (props.onChange) props.onChange(temp);
@@ -39,7 +38,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.member = v;
                     if (props.onChange) props.onChange(temp);
@@ -51,7 +50,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.message = v;
                     if (props.onChange) props.onChange(temp);
@@ -63,7 +62,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.role = v;
                     if (props.onChange) props.onChange(temp);
@@ -75,7 +74,7 @@ function LogsConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
                     temp.user = v;
                     if (props.onChange) props.onChange(temp);

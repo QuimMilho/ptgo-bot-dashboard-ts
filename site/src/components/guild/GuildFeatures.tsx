@@ -11,7 +11,10 @@ import FeatureEditor from './FeatureEditor';
 import APIURL from '../../index';
 import axios from 'axios';
 
-function GuildFeatures(props: { guild: APIUserGuildsInfo }) {
+function GuildFeatures(props: {
+	guild: APIUserGuildsInfo;
+	guilds: APIUserGuildsInfo[];
+}) {
 	const [message, setMessage] = useState(createCustomMessage());
 	const [messageId, setMessageId] = useState<string | undefined>(undefined);
 	const [edicao, setEdicao] = useState<boolean>(false);
@@ -83,7 +86,10 @@ function GuildFeatures(props: { guild: APIUserGuildsInfo }) {
 									setFeatures(temp);
 								}}
 								guild={props.guild}
+								guilds={props.guilds}
 							/>
+							<br />
+							<br />
 							<button onClick={() => {}}>Guardar</button>
 						</div>
 					) : (

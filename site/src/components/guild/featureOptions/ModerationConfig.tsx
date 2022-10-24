@@ -1,4 +1,3 @@
-import { Snowflake } from 'discord.js';
 import React from 'react';
 import { APIUserGuildsInfo } from '../../../types/API';
 import { ModerationOptions } from '../../../types/Features';
@@ -20,7 +19,7 @@ function ModerationConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
 					temp.automod.autoDeleteMessages = [...v];
 					if (props.onChange) props.onChange(temp);
@@ -103,7 +102,7 @@ function ModerationConfig(props: {
 				roles={props.guild.guild.roles}
 				clearable={true}
 				value={props.value.mutedRoles}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
 					temp.mutedRoles = v;
 					if (props.onChange) props.onChange(temp);
@@ -127,7 +126,7 @@ function ModerationConfig(props: {
 						roles={props.guild.guild.roles}
 						clearable={true}
 						value={props.value.bannedRoles}
-						onChange={(v: Snowflake[]) => {
+						onChange={(v: string[]) => {
 							const temp = { ...props.value };
 							temp.bannedRoles = v;
 							if (props.onChange) props.onChange(temp);
@@ -181,7 +180,7 @@ function ModerationConfig(props: {
 				roles={props.guild.guild.roles}
 				clearable={true}
 				value={props.value.moderators}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
 					temp.moderators = v;
 					if (props.onChange) props.onChange(temp);
@@ -192,7 +191,7 @@ function ModerationConfig(props: {
 			<MultipleTextChannelSelect
 				channels={props.guild.guild.channels}
 				clearable={true}
-				onChange={(v: Snowflake[]) => {
+				onChange={(v: string[]) => {
 					const temp = { ...props.value };
 					temp.logs = v;
 					if (props.onChange) props.onChange(temp);

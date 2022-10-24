@@ -20,7 +20,7 @@ export function getMemberPerms(
 	| 'MUTED'
 	| 'BANNED'
 )[] {
-	if (member.permissions.has('ADMINISTRATOR')) return ['ADMINISTRATOR'];
+	if (member.permissions.has('Administrator')) return ['ADMINISTRATOR'];
 	const features: Features = client.guildManager.getFeatures(guild.id);
 	let perms: (
 		| 'ADMINISTRATOR'

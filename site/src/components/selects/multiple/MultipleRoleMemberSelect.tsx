@@ -1,13 +1,12 @@
 import React from 'react';
 import { MemberInfo, RoleInfo } from '../../../types/API';
 import Select from 'react-select';
-import { Snowflake } from 'discord.js';
 
 function MultipleRoleMemberSelect(props: {
 	roles: RoleInfo[];
 	members: MemberInfo[];
-	value: Snowflake[] | null;
-	onChange: ((v: Snowflake[]) => void) | undefined;
+	value: string[] | null;
+	onChange: ((v: string[]) => void) | undefined;
 	clearable: boolean | undefined;
 }) {
 	const options: { label: string; value: string; color: string }[] = [];
@@ -39,7 +38,7 @@ function MultipleRoleMemberSelect(props: {
 			isSearchable={true}
 			onChange={(value) => {
 				if (props.onChange) {
-					const array: Snowflake[] = [];
+					const array: string[] = [];
 					for (let i = 0; i < value.length; i++) {
 						array.push(value[i].value);
 					}

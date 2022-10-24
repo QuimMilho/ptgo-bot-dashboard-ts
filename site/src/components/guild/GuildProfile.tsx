@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { APIUserGuildsInfo } from '../../types/API';
 import NotFound from '../pages/NotFound';
 
-function GuildProfile(props: { guild: APIUserGuildsInfo | undefined }) {
+function GuildProfile(props: {
+	guild: APIUserGuildsInfo | undefined;
+	guilds: APIUserGuildsInfo[];
+}) {
 	const navigate = useNavigate();
 	if (!props.guild) return <NotFound />;
 	return (
@@ -11,7 +14,7 @@ function GuildProfile(props: { guild: APIUserGuildsInfo | undefined }) {
 			<div className="guildProfileInfoContainer">
 				<img
 					src={props.guild.guild.icon ? props.guild.guild.icon : '/logo.png'}
-					alt={"Imagem de perfil"}
+					alt={'Imagem de perfil'}
 				/>
 				<div className="guildProfileInfo">
 					<h1>{props.guild.guild.name}</h1>

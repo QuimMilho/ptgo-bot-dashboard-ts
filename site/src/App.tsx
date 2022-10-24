@@ -31,8 +31,14 @@ function App(): JSX.Element {
 				<Route path="/" element={<Home />} />
 				<Route path="/guild" element={<GuildList guilds={user?.servers} />} />
 				<Route path="/guild/:id" element={<Guild guilds={user?.servers} />} />
-				<Route path="/guild/:id/:page" element={<Guild guilds={user?.servers} />} />
-				<Route path="/member/:guildId/:memberId" element={<Member />} />
+				<Route
+					path="/guild/:id/:page"
+					element={<Guild guilds={user?.servers} />}
+				/>
+				<Route
+					path="/member/:guildId/:memberId"
+					element={<Member />}
+				/>
 				<Route path="/*" element={<NotFound />} />
 			</Routes>
 		</Router>
