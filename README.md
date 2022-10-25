@@ -77,6 +77,18 @@ CREATE TABLE permaRoles (
 	expires DATETIME,
 	expired BOOLEAN
 );
+
+CREATE TABLE punicoes (
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	guildId VARCHAR(20),
+	clientId VARCHAR(20),
+	adminId VARCHAR(20),
+	timeDone DATETIME,
+	expires DATETIME,
+	expired BOOLEAN,
+	reason VARCHAR(100),
+	tipo VARCHAR(10)
+);
 ```
 
 ### <b>Criar o Utilizador</b>

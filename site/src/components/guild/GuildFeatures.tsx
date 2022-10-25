@@ -15,6 +15,7 @@ function GuildFeatures(props: {
 	guild: APIUserGuildsInfo;
 	guilds: APIUserGuildsInfo[];
 }) {
+	console.log(props.guild);
 	const [message, setMessage] = useState(createCustomMessage());
 	const [messageId, setMessageId] = useState<string | undefined>(undefined);
 	const [edicao, setEdicao] = useState<boolean>(false);

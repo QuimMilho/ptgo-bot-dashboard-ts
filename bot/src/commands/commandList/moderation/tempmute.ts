@@ -7,7 +7,7 @@ export default class Mute extends Command {
 	constructor(client: ExtendedClient) {
 		super(client, {
 			category: { name: 'moderation' },
-			defaultMemberPermissions: 'ModerateMembers',
+			defaultMemberPermissions: null,
 			description: 'Muta um utilizador por tempo determinado',
 			dmPermission: false,
 			name: 'tempmute',
@@ -19,17 +19,17 @@ export default class Mute extends Command {
 					type: 'User',
 				},
 				{
-					description: 'Motivo do mute',
-					name: 'motivo',
-					required: true,
-					type: 'String',
-				},
-				{
-					description: 'Tempo do mute',
+					description: 'Tempo do mute (em minutos)',
 					name: 'tempo',
 					required: true,
 					type: 'Number',
 					minValue: 1,
+				},
+				{
+					description: 'Motivo do mute',
+					name: 'motivo',
+					required: false,
+					type: 'String',
 				},
 			],
 		});
@@ -66,6 +66,7 @@ export default class Mute extends Command {
 					inline: true,
 				},
 				{ name: 'Duração', value: `${tempo} minutos`, inline: true },
+				{ name: 'Motivo', value: motivo ? motivo : 'Sem motivo', inline: true },
 			]);
 		} else if (muted === 'AlreadyMuted') {
 			embed.setTitle('User já mutado!');
@@ -77,7 +78,7 @@ export default class Mute extends Command {
 			embed.setTitle('Ocorreu um erro ao executar esse comando!');
 			embed.setColor('#ff0000');
 		}
-		interaction.editReply('Comando executado!');
-		interaction.followUp({ embeds: [embed] });
+		await interaction.editReply('Comando executado!');
+		await interaction.followUp({ embeds: [embed] });
 	};
 }

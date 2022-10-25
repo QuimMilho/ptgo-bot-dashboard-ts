@@ -3,7 +3,6 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 	ChatInputCommandInteraction,
-	CommandInteraction,
 } from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
 import Command from '../../Command';

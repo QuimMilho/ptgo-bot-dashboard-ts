@@ -1,4 +1,4 @@
-import { Collection, CommandInteraction, Guild } from 'discord.js';
+import { Collection, CommandInteraction, Guild, SlashCommandBuilder } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
 import Command from './Command';
 
@@ -40,11 +40,11 @@ export default class CommandManager {
 	}
 
 	async setCommands(guild: Guild) {
-		let commands: Command[] = [];
+		let commands: SlashCommandBuilder[] = [];
 		for (let i = 0; i < this.commands.size; i++) {
 			const cmd = this.commands.at(i);
 			if (this.client.guildManager.hasFeature(guild.id, cmd.category))
-				commands.push(this.commands.at(i));
+				commands.push(this.commands.at(i).command);
 		}
 		await guild.commands.set(commands);
 		console.log(`Comandos registados para a guild ${guild.name}!`);

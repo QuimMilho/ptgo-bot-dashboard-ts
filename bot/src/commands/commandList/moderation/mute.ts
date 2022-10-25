@@ -1,4 +1,9 @@
-import { ChatInputCommandInteraction, CommandInteraction, EmbedBuilder, User } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	CommandInteraction,
+	EmbedBuilder,
+	User,
+} from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
 import { mute } from '../../../strategies/moderation/mute';
 import Command from '../../Command';
@@ -7,7 +12,7 @@ export default class Mute extends Command {
 	constructor(client: ExtendedClient) {
 		super(client, {
 			category: { name: 'moderation' },
-			defaultMemberPermissions: 'ModerateMembers',
+			defaultMemberPermissions: null,
 			description: 'Muta um utilizador por tempo indeterminado',
 			dmPermission: false,
 			name: 'mute',
@@ -21,7 +26,7 @@ export default class Mute extends Command {
 				{
 					description: 'Motivo do mute',
 					name: 'motivo',
-					required: true,
+					required: false,
 					type: 'String',
 				},
 			],
@@ -30,13 +35,13 @@ export default class Mute extends Command {
 
 	run = async (interaction: ChatInputCommandInteraction) => {
 		const user = interaction.options.getUser('user');
-        const motivo = interaction.options.getString('motivo');
+		const motivo = interaction.options.getString('motivo');
 		const muted = await mute(
 			this.client,
 			interaction.guild,
 			user,
-			interaction.member.user as User, 
-            motivo
+			interaction.member.user as User,
+			motivo
 		).catch((err) => console.log(err));
 		let embed = new EmbedBuilder();
 		if (!muted) {
@@ -57,6 +62,7 @@ export default class Mute extends Command {
 					inline: true,
 				},
 				{ name: 'Duração', value: 'Indeterminado', inline: true },
+				{ name: 'Motivo', value: motivo ? motivo : 'Sem motivo', inline: true },
 			]);
 		} else if (muted === 'AlreadyMuted') {
 			embed.setTitle('User já mutado!');
@@ -68,7 +74,7 @@ export default class Mute extends Command {
 			embed.setTitle('Ocorreu um erro ao executar esse comando!');
 			embed.setColor('#ff0000');
 		}
-		interaction.editReply('Comando executado!');
-		interaction.followUp({ embeds: [embed] });
+		await interaction.editReply('Comando executado!');
+		await interaction.followUp({ embeds: [embed] });
 	};
 }
