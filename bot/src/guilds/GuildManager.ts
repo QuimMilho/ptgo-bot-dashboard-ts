@@ -1,4 +1,12 @@
-import { Collection, Guild, Snowflake } from 'discord.js';
+import {
+	Collection,
+	Embed,
+	EmbedBuilder,
+	Guild,
+	Message,
+	Snowflake,
+	TextChannel,
+} from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
 import { FeatureList, Features } from '../types/Features';
 import fs from 'fs';
@@ -166,5 +174,29 @@ export default class GuildManager {
 		console.log(`Alterada config file para a guild ${guild.name}`);
 
 		if (commands) this.client.commandManager.setCommands(guild);
+	}
+
+	async logSnowflake(
+		guild: Guild,
+		channels: string[],
+		content: string | null,
+		embeds?: Embed[] | EmbedBuilder[] | null
+	) {
+		for (let i = 0; i < channels.length; i++) {
+			const channelId = channels[i];
+			const channel = (await guild.channels.fetch(channelId)) as TextChannel;
+			channel.send({ content, embeds });
+		}
+	}
+
+	log(
+		channels: TextChannel[],
+		content: string | null,
+		embeds?: Embed[] | EmbedBuilder[] | null
+	) {
+		for (let i = 0; i < channels.length; i++) {
+			const channel = channels[i];
+			channel.send({ content, embeds });
+		}
 	}
 }

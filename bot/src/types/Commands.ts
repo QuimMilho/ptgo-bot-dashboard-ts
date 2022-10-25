@@ -66,8 +66,8 @@ export interface CustomCommandOptions {
 	name: string;
 	description: string;
 	required: boolean;
-	choices: number | string | null;
-	channelTypes:
+	choices?: number | string;
+	channelTypes?:
 		| 'AnnouncementThread'
 		| 'DM'
 		| 'GroupDM'
@@ -79,13 +79,11 @@ export interface CustomCommandOptions {
 		| 'GuildText'
 		| 'GuildVoice'
 		| 'PrivateThread'
-		| 'PublicThread'
-		| string
-		| null;
-	minValue: number | null;
-	maxValue: number | null;
-	minLength: number | null;
-	maxLength: number | null;
+		| 'PublicThread';
+	minValue?: number;
+	maxValue?: number;
+	minLength?: number;
+	maxLength?: number;
 }
 
 export interface ButtonOptions {

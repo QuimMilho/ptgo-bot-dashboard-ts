@@ -2,6 +2,7 @@ import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	ChatInputCommandInteraction,
 	CommandInteraction,
 } from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
@@ -19,7 +20,7 @@ export default class extends Command {
 		});
 	}
 
-	run = async (interaction: CommandInteraction) => {
+	run = async (interaction: ChatInputCommandInteraction) => {
 		const test = await this.client.query('SELECT * FROM users', []);
 		console.log(test);
 		interaction.editReply('Done!');
