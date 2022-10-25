@@ -90,10 +90,10 @@ export async function getChannels(guild: Guild) {
 						id: channel.parent.id,
 						name: channel.parent.name,
 						parent: null,
-						type: channel.parent.type.toString(),
+						type: getChannelType(channel.parent.type),
 				  }
 				: null,
-			type: channel.type.toString(),
+			type: getChannelType(channel.type),
 		});
 	}
 	return channelList;
@@ -137,4 +137,34 @@ export async function getRoles(guild: Guild) {
 	}
 
 	return roleList;
+}
+
+export function getChannelType(channelType: number) {
+	switch (channelType) {
+		case 0:
+			return 'GuildText';
+		case 1:
+			return 'DM';
+		case 2:
+			return 'GuildVoice';
+		case 3:
+			return 'GroupDM';
+		case 4:
+			return 'GuildCategory';
+		case 5:
+			return 'GuildAnnouncement';
+		case 10:
+			return 'AnnouncementThread';
+		case 11:
+			return 'PublicThread';
+		case 12:
+			return 'PrivateThread';
+		case 13:
+			return 'GuildStageVoice';
+		case 14:
+			return 'GuildDirectory';
+		case 15:
+			return 'GuildForum';
+	}
+	return '';
 }
