@@ -65,7 +65,6 @@ export default class Server {
 	}
 
 	private startHTTPS() {
-		console.log(this.port);
 		const certs = {
 			cert: fs.readFileSync(process.cwd() + '/certs/ssl.pem'), 
 			key: fs.readFileSync(process.cwd() + '/certs/key.pem'),
