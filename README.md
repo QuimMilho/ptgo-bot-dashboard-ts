@@ -70,24 +70,25 @@ CREATE TABLE sessions (
 
 CREATE TABLE permaRoles (
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	guildId VARCHAR(20),
-	clientId VARCHAR(20),
-	roleId VARCHAR(20),
-	timeDone DATETIME,
+	guildId VARCHAR(20) NOT NULL,
+	clientId VARCHAR(20) NOT NULL,
+	roleId VARCHAR(20) NOT NULL,
+	timeDone DATETIME NOT NULL,
 	expires DATETIME,
-	expired BOOLEAN
+	expired BOOLEAN NOT NULL
 );
 
 CREATE TABLE punicoes (
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	guildId VARCHAR(20),
-	clientId VARCHAR(20),
-	adminId VARCHAR(20),
-	timeDone DATETIME,
+	guildId VARCHAR(20) NOT NULL,
+	clientId VARCHAR(20) NOT NULL,
+	adminId VARCHAR(20) NOT NULL,
+	timeDone DATETIME NOT NULL,
 	expires DATETIME,
-	expired BOOLEAN,
+	expired BOOLEAN NOT NULL,
 	reason VARCHAR(100),
-	tipo VARCHAR(10)
+	removeReason VARCHAR(100),
+	tipo VARCHAR(10) NOT NULL
 );
 ```
 

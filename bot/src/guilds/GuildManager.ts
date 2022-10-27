@@ -3,7 +3,6 @@ import {
 	Embed,
 	EmbedBuilder,
 	Guild,
-	Message,
 	Snowflake,
 	TextChannel,
 } from 'discord.js';
@@ -185,7 +184,7 @@ export default class GuildManager {
 		for (let i = 0; i < channels.length; i++) {
 			const channelId = channels[i];
 			const channel = (await guild.channels.fetch(channelId)) as TextChannel;
-			channel.send({ content, embeds });
+			channel.send({ content, embeds }).catch(console.log);
 		}
 	}
 
@@ -196,7 +195,7 @@ export default class GuildManager {
 	) {
 		for (let i = 0; i < channels.length; i++) {
 			const channel = channels[i];
-			channel.send({ content, embeds });
+			channel.send({ content, embeds }).catch(console.log);
 		}
 	}
 }

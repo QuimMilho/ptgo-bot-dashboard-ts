@@ -19,16 +19,17 @@ export async function mute(
 		}
 	} else {
 		const info: BDPunitions[] = await client.query(
-			'SELECT * FROM PUNICOES WHERE CLIENTID LIKE ? AND EXPIRED = FALSE',
-			[user.id]
+			'SELECT * FROM PUNICOES WHERE GUILDID LIKE ? AND CLIENTID LIKE ? AND' +
+				" EXPIRED = FALSE AND TIPO LIKE 'mute'",
+			[guild.id, user.id]
 		);
-		if (info.length != 0) {
+		if (info.length !== 0) {
 			return 'AlreadyMuted';
 		}
 	}
 	await client.query(
-		'INSERT INTO PUNICOES (GUILDID, CLIENTID, ADMINID, TIMEDONE, EXPIRES, EXPIRED, REASON, TIPO)' +
-			` VALUES (?, ?, ?, NOW(), NOW(), ?, ?, 'mute')`,
+		'INSERT INTO PUNICOES (GUILDID, CLIENTID, ADMINID, TIMEDONE, EXPIRED, REASON, TIPO)' +
+			` VALUES (?, ?, ?, NOW(), ?, ?, 'mute')`,
 		[guild.id, user.id, admin.id, false, reason]
 	);
 	const embed = new EmbedBuilder()
@@ -71,10 +72,11 @@ export async function tempMute(
 		}
 	} else {
 		const info: BDPunitions[] = await client.query(
-			'SELECT * FROM PUNICOES WHERE CLIENTID LIKE ? AND EXPIRED = FALSE',
-			[user.id]
+			'SELECT * FROM PUNICOES WHERE GUILDID LIKE ? AND CLIENTID LIKE ? AND' +
+				" EXPIRED = FALSE AND TIPO LIKE 'mute'",
+			[guild.id, user.id]
 		);
-		if (info.length != 0) {
+		if (info.length !== 0) {
 			return 'AlreadyMuted';
 		}
 	}
@@ -112,4 +114,77 @@ export async function unmute(
 	user: User,
 	admin: User,
 	reason?: string
-) {}
+): Promise<'Unmuted' | 'DBUnmuted' | 'NotMuted' | 'Error'> {
+	const member = await guild.members.fetch(user.id);
+	const moderation = client.guildManager.getFeatures(guild.id).moderation;
+	const mutedRoles = moderation.mutedRoles;
+	const embed = new EmbedBuilder()
+		.setFooter({
+			text: `memberId:${user.id} adminId:${admin.id}`,
+		})
+		.addFields([
+			{ name: 'User', value: `<@${user.id}>`, inline: true },
+			{
+				name: 'Admin',
+				value: `<@${admin.id}>`,
+				inline: true,
+			},
+			{ name: 'Motivo', value: reason ? reason : 'Sem motivo', inline: true },
+		]);
+	const info: BDPunitions[] = await client.query(
+		'SELECT * FROM PUNICOES WHERE GUILDID LIKE ? AND CLIENTID LIKE ? AND' +
+			" EXPIRED = FALSE AND TIPO LIKE 'mute'",
+		[guild.id, user.id]
+	);
+	if (member) {
+		if (hasRoles(member, mutedRoles)) {
+			await client.query(
+				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+					" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'mute'",
+				[reason, user.id, guild.id]
+			);
+			await member.roles.remove(mutedRoles);
+			embed.setTitle('Mute removido!');
+			embed.setColor('#00ff00');
+			await client.guildManager.logSnowflake(guild, moderation.logs, null, [
+				embed,
+			]);
+			return 'Unmuted';
+		}
+		if (info.length !== 0) {
+			await client.query(
+				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+					" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'mute'",
+				[reason, user.id, guild.id]
+			);
+			embed.setTitle('Mute removido da database!');
+			embed.setDescription(
+				'O utilizador não tinha nenhuma role de mute e tinha um mute ativo.'
+			);
+			embed.setColor('#ff9933');
+			await client.guildManager.logSnowflake(guild, moderation.logs, null, [
+				embed,
+			]);
+			return 'DBUnmuted';
+		}
+		return 'NotMuted';
+	} else {
+		if (info.length === 0) {
+			return 'NotMuted';
+		}
+		await client.query(
+			'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+				" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'mute'",
+			[reason, user.id, guild.id]
+		);
+		embed.setTitle('Mute removido da database!');
+		embed.setDescription(
+			'O utilizador não tinha nenhuma role de mute e tinha um mute ativo.'
+		);
+		embed.setColor('#ff9933');
+		await client.guildManager.logSnowflake(guild, moderation.logs, null, [
+			embed,
+		]);
+		return 'DBUnmuted';
+	}
+}

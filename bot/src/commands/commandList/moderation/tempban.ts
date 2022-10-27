@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, EmbedBuilder, User } from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
+import { tempban } from '../../../strategies/moderation/ban';
 import { tempMute } from '../../../strategies/moderation/mute';
 import Command from '../../Command';
 
@@ -10,23 +11,23 @@ export default class Mute extends Command {
 			defaultMemberPermissions: null,
 			description: 'Muta um utilizador por tempo determinado',
 			dmPermission: false,
-			name: 'tempmute',
+			name: 'tempban',
 			options: [
 				{
-					description: 'Utilizador a mutar',
+					description: 'Utilizador a banir',
 					name: 'user',
 					required: true,
 					type: 'User',
 				},
 				{
-					description: 'Tempo do mute (em minutos)',
+					description: 'Tempo do ban (em minutos)',
 					name: 'tempo',
 					required: true,
 					type: 'Integer',
 					minValue: 1,
 				},
 				{
-					description: 'Motivo do mute',
+					description: 'Motivo do ban',
 					name: 'motivo',
 					required: false,
 					type: 'String',
@@ -39,26 +40,36 @@ export default class Mute extends Command {
 	run = async (interaction: ChatInputCommandInteraction) => {
 		const user = interaction.options.getUser('user');
 		const motivo = interaction.options.getString('motivo');
-		const tempo = interaction.options.getNumber('tempo');
-		const muted = await tempMute(
+		const tempo = interaction.options.getInteger('tempo');
+		const banned = await tempban(
 			this.client,
 			interaction.guild,
 			user,
 			interaction.member.user as User,
 			tempo,
 			motivo
-		).catch((err) => console.log(err));
-		let embed = new EmbedBuilder();
-		if (!muted) {
-			return interaction.editReply(
-				'Ocorreu um erro ao executares esse comando!'
-			);
-		} else if (muted === 'Muted') {
-			embed.setTitle('User mutado!');
+		);
+		const embed = new EmbedBuilder().setFooter({
+			text: `memberId:${user.id} adminId:${interaction.member.user.id}`,
+		});
+		if (banned === 'AlreadyBanned') {
+			embed.setTitle('Esse utilizador já estava banido!');
+			embed.setColor('#ff0000');
 			embed.setFooter({
 				text: `memberId:${user.id} adminId:${interaction.member.user.id}`,
 			});
+		} else if (banned === 'AlreadyBannedDiscord') {
+			embed.setTitle('Esse utilizador já estava banido do discord!');
+			embed.setColor('#ff0000');
+			embed.setFooter({
+				text: `memberId:${user.id} adminId:${interaction.member.user.id}`,
+			});
+		} else if (banned === 'Banned') {
+			embed.setTitle('User banido!');
 			embed.setColor('#00ff00');
+			embed.setFooter({
+				text: `memberId:${user.id} adminId:${interaction.member.user.id}`,
+			});
 			embed.addFields([
 				{ name: 'User', value: `<@${user.id}>`, inline: true },
 				{
@@ -69,17 +80,27 @@ export default class Mute extends Command {
 				{ name: 'Duração', value: `${tempo} minutos`, inline: true },
 				{ name: 'Motivo', value: motivo ? motivo : 'Sem motivo', inline: true },
 			]);
-		} else if (muted === 'AlreadyMuted') {
-			embed.setTitle('User já mutado!');
-			embed.setColor('#ff0000');
+		} else if (banned === 'BannedDiscord') {
+			embed.setTitle('User banido do discord!');
+			embed.setColor('#00ff00');
 			embed.setFooter({
 				text: `memberId:${user.id} adminId:${interaction.member.user.id}`,
 			});
+			embed.addFields([
+				{ name: 'User', value: `<@${user.id}>`, inline: true },
+				{
+					name: 'Admin',
+					value: `<@${interaction.member.user.id}>`,
+					inline: true,
+				},
+				{ name: 'Duração', value: `${tempo} minutos`, inline: true },
+				{ name: 'Motivo', value: motivo ? motivo : 'Sem motivo', inline: true },
+			]);
 		} else {
-			embed.setTitle('Ocorreu um erro ao executar esse comando!');
+			embed.setTitle('Ocorreu um erro ao executares esse comando!');
 			embed.setColor('#ff0000');
 		}
-		await interaction.editReply('Comando executado!');
-		await interaction.followUp({ embeds: [embed] });
+		interaction.editReply('Comando executado!');
+		interaction.followUp({ embeds: [embed] });
 	};
 }
