@@ -13,7 +13,7 @@ export interface DBPermaRoles {
 	clientId: string;
 	roleId: string;
 	timeDone: Date;
-	expires: Date;
+	expires: Date | null;
 	expired: boolean;
 }
 
@@ -23,8 +23,10 @@ export interface BDPunitions {
 	clientId: string;
 	adminId: string;
 	timeDone: Date;
-	expires: Date;
+	expires: Date | null;
 	expired: boolean;
-	reason: string;
+	reason: string | null;
+	removeReason: string | null;
+	removeAdminId: string | null;
 	tipo: 'mute' | 'ban' | 'warning';
 }

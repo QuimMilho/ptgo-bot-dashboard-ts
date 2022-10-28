@@ -1,9 +1,14 @@
 import {
+	APIInteractionGuildMember,
+	ChatInputCommandInteraction,
 	CommandInteraction,
 	EmbedBuilder,
+	GuildMember,
+	GuildMemberRoleManager,
 	SlashCommandBuilder,
 } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
+import { hasRoles } from '../strategies/permissions';
 import { CommandOptions, CustomCommandOptions } from '../types/Commands';
 import { FeatureList } from '../types/Features';
 
@@ -135,4 +140,16 @@ export function addOptions(
 		}
 	}
 	return command;
+}
+
+export function noPermission(
+	interaction: ChatInputCommandInteraction,
+	member: GuildMember,
+	roles: string[]
+): boolean {
+	if (!hasRoles(member, roles)) {
+		interaction.editReply({ content: 'Não tens permissão!' });
+		return true;
+	}
+	return false;
 }

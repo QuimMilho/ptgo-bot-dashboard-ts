@@ -13,6 +13,13 @@ export async function mute(
 	const member = await guild.members.fetch(user.id);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const mutedRoles = moderation.mutedRoles;
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	if (member) {
 		if (hasRoles(member, mutedRoles)) {
 			return 'AlreadyMuted';
@@ -66,6 +73,13 @@ export async function tempMute(
 	const member = await guild.members.fetch(user.id);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const mutedRoles = moderation.mutedRoles;
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	if (member) {
 		if (hasRoles(member, mutedRoles)) {
 			return 'AlreadyMuted';
@@ -83,7 +97,7 @@ export async function tempMute(
 	await client.query(
 		'INSERT INTO PUNICOES (GUILDID, CLIENTID, ADMINID, TIMEDONE, EXPIRES, EXPIRED, REASON, TIPO)' +
 			` VALUES (?, ?, ?, NOW(), NOW() + interval ? minute, ?, ?, 'mute')`,
-		[guild.id, user.id, admin.id, time + 1, false, reason]
+		[guild.id, user.id, admin.id, time, false, reason]
 	);
 	const embed = new EmbedBuilder()
 		.setTitle('User mutado!')
@@ -118,6 +132,13 @@ export async function unmute(
 	const member = await guild.members.fetch(user.id);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const mutedRoles = moderation.mutedRoles;
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	const embed = new EmbedBuilder()
 		.setFooter({
 			text: `memberId:${user.id} adminId:${admin.id}`,
@@ -139,9 +160,10 @@ export async function unmute(
 	if (member) {
 		if (hasRoles(member, mutedRoles)) {
 			await client.query(
-				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ?, REMOVEADMINID = ?' +
+					' WHERE CLIENTID LIKE ? AND' +
 					" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'mute'",
-				[reason, user.id, guild.id]
+				[reason, admin.id, user.id, guild.id]
 			);
 			await member.roles.remove(mutedRoles);
 			embed.setTitle('Mute removido!');

@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Snowflake, User } from 'discord.js';
+import { APIInteractionGuildMember, Guild, GuildMember, Snowflake, User } from 'discord.js';
 import ExtendedClient from '../client/ExtendedClient';
 import { DBPermaRoles } from '../types/Database';
 import { Features } from '../types/Features';

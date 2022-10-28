@@ -57,16 +57,47 @@ export default class Server {
 
 		this.port = this.client.config.api.port || 3000;
 
-		this.app.use('/api', apiRouter);
-		this.app.get('/', this.sendIndexHTML);
-		this.app.get('*', this.sendPublicFiles, this.sendIndexHTML);
+		this.app.use(
+			'/api',
+			(req, res, next) => {
+				if (client.serverReady) {
+					next();
+				} else {
+					res.sendStatus(425);
+				}
+			},
+			apiRouter
+		);
+		this.app.get(
+			'/',
+			(req, res, next) => {
+				if (client.serverReady) {
+					next();
+				} else {
+					res.sendStatus(425);
+				}
+			},
+			this.sendIndexHTML
+		);
+		this.app.get(
+			'*',
+			(req, res, next) => {
+				if (client.serverReady) {
+					next();
+				} else {
+					res.sendStatus(425);
+				}
+			},
+			this.sendPublicFiles,
+			this.sendIndexHTML
+		);
 
 		this.client.config.api.https ? this.startHTTPS() : this.startHTTP();
 	}
 
 	private startHTTPS() {
 		const certs = {
-			cert: fs.readFileSync(process.cwd() + '/certs/ssl.pem'), 
+			cert: fs.readFileSync(process.cwd() + '/certs/ssl.pem'),
 			key: fs.readFileSync(process.cwd() + '/certs/key.pem'),
 		};
 		https.createServer(certs, this.app).listen(this.port, () => {

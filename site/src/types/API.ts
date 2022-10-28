@@ -29,7 +29,8 @@ export interface ChannelInfo {
 		| 'GuildText'
 		| 'GuildVoice'
 		| 'PrivateThread'
-		| 'PublicThread';
+		| 'PublicThread'
+		| string;
 	parent: ChannelInfo | null;
 }
 

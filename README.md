@@ -54,11 +54,11 @@ Para criar as tabelas executa os comandos que se encontram no bloco a baixo. Est
 ```sql
 CREATE TABLE users (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    clientId VARCHAR(20),
-    token VARCHAR(30),
-    refreshToken VARCHAR(30),
-    avatar VARCHAR(35),
-    tag VARCHAR(40)
+    clientId VARCHAR(20) NOT NULL,
+    token VARCHAR(30) NOT NULL,
+    refreshToken VARCHAR(30) NOT NULL,
+    avatar VARCHAR(35) NOT NULL,
+    tag VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE sessions (
@@ -88,6 +88,7 @@ CREATE TABLE punicoes (
 	expired BOOLEAN NOT NULL,
 	reason VARCHAR(100),
 	removeReason VARCHAR(100),
+	removeAdminId VARCHAR(20),
 	tipo VARCHAR(10) NOT NULL
 );
 ```

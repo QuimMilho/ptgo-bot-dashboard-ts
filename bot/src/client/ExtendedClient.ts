@@ -5,6 +5,7 @@ import CommandManager from '../commands/CommandManager';
 import EventManager from '../events/EventManager';
 import GuildManager from '../guilds/GuildManager';
 import Server from '../server/Server';
+import TimeManager from '../timer/TimeManager';
 import { ClientConfig } from '../types/Config';
 
 export default class ExtendedClient extends Client {
@@ -12,14 +13,17 @@ export default class ExtendedClient extends Client {
 	buttonManager: ButtonManager;
 	commandManager: CommandManager;
 	guildManager: GuildManager;
+	timeManager: TimeManager;
 	mysql: Connection;
 	config: ClientConfig;
 	server: Server;
+	serverReady: boolean;
 
 	constructor(options: ClientOptions, config: ClientConfig) {
 		super(options);
 
 		this.config = config;
+		this.serverReady = false;
 		this.createConnection().then((v) => {
 			if (v) console.log('MySQL Connection complete!');
 			else console.log('Alguma coisa aconteceu!');
@@ -31,6 +35,7 @@ export default class ExtendedClient extends Client {
 		this.commandManager = new CommandManager(this);
 		this.buttonManager = new ButtonManager(this);
 		this.server = new Server(this);
+		this.timeManager = new TimeManager(this);
 	}
 
 	private async createConnection() {
@@ -50,5 +55,9 @@ export default class ExtendedClient extends Client {
 				else resolve(res);
 			});
 		});
+	}
+
+	ready() {
+		this.serverReady = true;
 	}
 }

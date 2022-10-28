@@ -7,11 +7,21 @@ export default class extends Event {
 		super(client, { name: 'interactionCreate' });
 	}
 
-    override run = (interaction: Interaction) => {
-        if (interaction.isCommand()) {
-            this.client.commandManager.executeCommand(interaction);
-        } else if (interaction.isButton()) {
-            this.client.buttonManager.executeButton(interaction);
-        }
-    }
+	run = (interaction: Interaction) => {
+		if (interaction.isCommand()) {
+			if (!this.client.serverReady)
+				return interaction.reply({
+					content: 'O bot ainda não está pronto!',
+					ephemeral: true,
+				});
+			this.client.commandManager.executeCommand(interaction);
+		} else if (interaction.isButton()) {
+			if (!this.client.serverReady)
+				return interaction.reply({
+					content: 'O bot ainda não está pronto!',
+					ephemeral: true,
+				});
+			this.client.buttonManager.executeButton(interaction);
+		}
+	};
 }

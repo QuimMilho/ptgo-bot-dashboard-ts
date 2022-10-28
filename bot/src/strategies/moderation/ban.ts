@@ -19,6 +19,13 @@ export async function ban(
 	const member = await guild.members.fetch(user.id).catch(console.log);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const bannedRoles = moderation.bannedRoles;
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	if (await guild.bans.fetch(user.id).catch(console.log)) {
 		return 'AlreadyBannedDiscord';
 	} else if (member && moderation.banRoles && hasRoles(member, bannedRoles)) {
@@ -82,6 +89,13 @@ export async function tempban(
 	const member = await guild.members.fetch(user.id).catch(console.log);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const bannedRoles = moderation.bannedRoles;
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	if (await guild.bans.fetch(user.id).catch(console.log)) {
 		return 'AlreadyBannedDiscord';
 	} else if (member && moderation.banRoles && hasRoles(member, bannedRoles)) {
@@ -138,7 +152,13 @@ export async function unban(
 	const member = await guild.members.fetch(user.id).catch(console.log);
 	const moderation = client.guildManager.getFeatures(guild.id).moderation;
 	const bannedRoles = moderation.bannedRoles;
-
+	const modRoles = moderation.moderators;
+	if (
+		member &&
+		(hasRoles(member, modRoles) || member.permissions.has('Administrator'))
+	) {
+		return 'Error';
+	}
 	const embed = new EmbedBuilder()
 		.setFooter({
 			text: `memberId:${user.id} adminId:${admin.id}`,
@@ -156,9 +176,10 @@ export async function unban(
 	const ban = await guild.bans.fetch(user.id).catch(console.log);
 	if (ban) {
 		await client.query(
-			'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+			'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ?, REMOVEADMINID = ? ' +
+				' WHERE CLIENTID LIKE ? AND' +
 				" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'ban'",
-			[reason, user.id, guild.id]
+			[reason, admin.id, user.id, guild.id]
 		);
 		await guild.bans.remove(user.id);
 		embed.setTitle('Ban removido do discord!');
@@ -168,9 +189,10 @@ export async function unban(
 	} else if (member) {
 		if (hasRoles(member, bannedRoles)) {
 			await client.query(
-				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+				'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ?, REMOVEADMINID = ? ' +
+					' WHERE CLIENTID LIKE ? AND' +
 					" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'ban'",
-				[reason, user.id, guild.id]
+				[reason, admin.id, user.id, guild.id]
 			);
 			member.roles.remove(bannedRoles);
 			embed.setTitle('Ban removido!');
@@ -188,9 +210,10 @@ export async function unban(
 		return 'NotBanned';
 	} else {
 		await client.query(
-			'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ? WHERE CLIENTID LIKE ? AND' +
+			'UPDATE PUNICOES SET EXPIRED = TRUE, REMOVEREASON = ?, REMOVEADMINID = ? ' +
+				' WHERE CLIENTID LIKE ? AND' +
 				" GUILDID LIKE ? AND EXPIRED = FALSE AND TIPO LIKE 'ban'",
-			[reason, user.id, guild.id]
+			[reason, admin.id, user.id, guild.id]
 		);
 		embed.setTitle('Ban removido da database!');
 		embed.setColor('#ff9933');

@@ -6,7 +6,7 @@ import {
 } from 'discord.js';
 import ExtendedClient from '../../../client/ExtendedClient';
 import { mute } from '../../../strategies/moderation/mute';
-import Command from '../../Command';
+import Command, { noPermission } from '../../Command';
 
 export default class Mute extends Command {
 	constructor(client: ExtendedClient) {
@@ -35,6 +35,19 @@ export default class Mute extends Command {
 	}
 
 	run = async (interaction: ChatInputCommandInteraction) => {
+		const member = await interaction.guild.members.fetch(
+			interaction.member.user.id
+		);
+		if (
+			noPermission(
+				interaction,
+				member,
+				this.client.guildManager.getFeatures(interaction.guild.id).moderation
+					.moderators
+			)
+		)
+			return;
+
 		const user = interaction.options.getUser('user');
 		const motivo = interaction.options.getString('motivo');
 		const muted = await mute(

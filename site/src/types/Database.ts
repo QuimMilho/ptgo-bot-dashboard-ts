@@ -8,11 +8,24 @@ export interface DBUser {
 }
 
 export interface DBPermaRoles {
-	id: number,
-	guildId: string,
-	clientId: string,
-	roleId: string,
-	timeDone: Date,
-	expires: Date,
-	expired: boolean
+	id: number;
+	guildId: string;
+	clientId: string;
+	roleId: string;
+	timeDone: Date;
+	expires: Date | null;
+	expired: boolean;
+}
+
+export interface BDPunitions {
+	id: number;
+	guildId: string;
+	clientId: string;
+	adminId: string;
+	timeDone: Date;
+	expires: Date | null;
+	expired: boolean;
+	reason: string | null;
+	removeReason: string | null;
+	tipo: 'mute' | 'ban' | 'warning';
 }
