@@ -66,6 +66,7 @@ function App(): JSX.Element {
 export default App;
 
 async function loadUser(setInfo: Function) {
+	console.log(APIURL);
 	const info = await axios({
 		method: 'GET',
 		withCredentials: true,
