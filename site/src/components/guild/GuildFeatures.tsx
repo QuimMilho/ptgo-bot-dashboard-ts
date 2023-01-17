@@ -10,6 +10,9 @@ import NoPermission from '../pages/NoPermission';
 import FeatureEditor from './FeatureEditor';
 import APIURL from '../../index';
 import axios from 'axios';
+import Select from 'react-select';
+import TextChannelSelect from '../selects/single/TextChannelSelect';
+import { warn } from '../../App';
 
 function GuildFeatures(props: {
 	guild: APIUserGuildsInfo;
@@ -22,11 +25,21 @@ function GuildFeatures(props: {
 	const [features, setFeatures] = useState<
 		{ status: number; features: Features } | undefined
 	>(undefined);
+	const [func, setFunc] = useState<undefined | string>(undefined);
+	const [anounceId, setAnounceId] = useState<null | string>(null);
 	useEffect(() => {
 		if (props.guild.member.permissions.includes('ADMINISTRATOR')) {
 			getFeatures(setFeatures, props.guild.guild.id);
 		}
 	}, [props.guild.guild.id, props.guild.member.permissions]);
+	const opt: { value: string; label: string }[] = [];
+	if (features?.features.moderation)
+		opt.push({ label: 'Verificação', value: 'verify' });
+	if (features?.features.forms)
+		for (let i = 0; i < features.features.forms.forms.length; i++) {
+			const f = features.features.forms.forms[i];
+			opt.push({ value: f.id, label: `Formulário ${f.name}` });
+		}
 	return (
 		<div className="content">
 			{/* Anúncios */}
@@ -51,9 +64,39 @@ function GuildFeatures(props: {
 						>
 							Procurar
 						</button>
+						<br />
+						<span className="white bold">Funcionalidades extra</span>
+						<br />
+						<Select
+							options={opt}
+							isClearable={true}
+							isMulti={false}
+							placeholder={'Funcionalidades extra'}
+							value={opt.find((o) => o.value === func)}
+							onChange={(v) => {
+								setFunc(v?.value);
+							}}
+						/>
+						<br />
+						<span className='white bold'>Canal a enviar</span>
+						<br />
+						<TextChannelSelect
+							channels={props.guild.guild.channels}
+							clearable={false}
+							onChange={(v) => {
+								setAnounceId(v);
+							}}
+							value={anounceId}
+						/>
+						<br />
 						<span className="bold white">Enviar anúncio!</span>
+						<br />
 						{edicao ? (
-							<span className="white bold">ESTÁS EM MODO EDIÇÃO!</span>
+							<span className="white bold">
+								<br />
+								ESTÁS EM MODO EDIÇÃO!
+								<br />
+							</span>
 						) : undefined}
 						<MessageBuilder
 							guild={props.guild}
@@ -70,7 +113,7 @@ function GuildFeatures(props: {
 								</span>
 							</div>
 						) : undefined}
-						<button onClick={() => {}}>Enviar</button>
+						<button onClick={() => {warn('teste', 'teste123 grande texto!')}}>Enviar</button>
 					</div>
 				</Folder>
 			) : undefined}

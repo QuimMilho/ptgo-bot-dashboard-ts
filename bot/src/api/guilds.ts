@@ -71,6 +71,32 @@ router.post('/features/:id', authenticated, async (req: UserRequest, res) => {
 	client.guildManager.setFeatures(guild, req.body);
 });
 
+router.post('/anounce/:guildId/:channelId', authenticated, (req, res) => {});
+
+router.post(
+	'/anounce/:guildId/:channelId/:func',
+	authenticated,
+	(req, res) => {}
+);
+
+router.post(
+	'/anounce/edit/:guildId/:channelId',
+	authenticated,
+	(req, res) => {}
+);
+
+router.post(
+	'/anounce/edit/:guildId/:channelId/:func',
+	authenticated,
+	(req, res) => {}
+);
+
+router.get(
+	'/anounce/:guildId/:channelId/:messageId',
+	authenticated,
+	(req, res) => {}
+);
+
 export default router;
 
 export async function getChannels(guild: Guild) {

@@ -48,9 +48,9 @@ export default class ExtendedClient extends Client {
 		});
 	}
 
-	async query(query: string, elements: any[]) {
+	async query(query: string, elements?: any[]) {
 		return new Promise<any[]>((resolve, reject) => {
-			this.mysql.query(query, elements, (err, res: any[], fields) => {
+			this.mysql.query(query.toUpperCase(), elements, (err, res: any[], fields) => {
 				if (err) reject(err);
 				else resolve(res);
 			});

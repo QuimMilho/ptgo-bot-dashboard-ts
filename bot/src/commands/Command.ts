@@ -147,7 +147,7 @@ export function noPermission(
 	member: GuildMember,
 	roles: string[]
 ): boolean {
-	if (!hasRoles(member, roles)) {
+	if (!hasRoles(member, roles) && !member.permissions.has('Administrator')) {
 		interaction.editReply({ content: 'Não tens permissão!' });
 		return true;
 	}

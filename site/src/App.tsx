@@ -10,14 +10,27 @@ import APIURL from './index';
 import Guild from './components/pages/Guild';
 import NotFound from './components/pages/NotFound';
 import Member from './components/pages/Member';
+import Warning from './components/pages/Warning';
 
 let done = false;
+
+export let warn: (title: string, text?: string | undefined) => void;
 
 function App(): JSX.Element {
 	const [user, setUser] = useState<APIUserInfo | undefined>({
 		servers: [],
 		user: { avatarURL: null, discriminator: null, username: null },
 	});
+
+	const [warning, setWarning] = useState<{
+		text: string;
+		title: string;
+		opened: boolean;
+	}>({ text: '', title: '', opened: false });
+
+	warn = (title: string, text?: string | undefined) => {
+		setWarning({ title, text: text ? text : '', opened: true });
+	};
 
 	if (!done) {
 		loadUser(setUser);
@@ -27,6 +40,14 @@ function App(): JSX.Element {
 	return (
 		<Router>
 			<Navigation user={user?.user} />
+			<Warning
+				clicked={() => {
+					setWarning({ ...warning, opened: false });
+				}}
+				opened={warning.opened}
+				text={warning.text}
+				title={warning.title}
+			/>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/guild" element={<GuildList guilds={user?.servers} />} />
@@ -35,10 +56,7 @@ function App(): JSX.Element {
 					path="/guild/:id/:page"
 					element={<Guild guilds={user?.servers} />}
 				/>
-				<Route
-					path="/member/:guildId/:memberId"
-					element={<Member />}
-				/>
+				<Route path="/member/:guildId/:memberId" element={<Member />} />
 				<Route path="/*" element={<NotFound />} />
 			</Routes>
 		</Router>

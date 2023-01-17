@@ -28,5 +28,5 @@ export interface BDPunitions {
 	reason: string | null;
 	removeReason: string | null;
 	removeAdminId: string | null;
-	tipo: 'mute' | 'ban' | 'warning';
+	tipo: 'mute' | 'ban' | 'warning' | 'kick';
 }
