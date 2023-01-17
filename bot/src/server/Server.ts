@@ -29,7 +29,7 @@ export default class Server {
 				schema: {
 					tableName: 'sessions',
 					columnNames: {
-						session_id: 'sessionId',
+						session_id: 'session_id',
 						data: 'data',
 						expires: 'expires',
 					},
