@@ -57,22 +57,9 @@ export default class Server {
 
 		this.port = this.client.config.api.port || 3000;
 
-		this.app.use(
-			'/api',
-			this.ready,
-			apiRouter
-		);
-		this.app.get(
-			'/',
-			this.ready,
-			this.sendIndexHTML
-		);
-		this.app.get(
-			'*',
-			this.ready,
-			this.sendPublicFiles,
-			this.sendIndexHTML
-		);
+		this.app.use('/api', this.ready, apiRouter);
+		this.app.get('/', this.ready, this.sendIndexHTML);
+		this.app.get('*', this.ready, this.sendPublicFiles, this.sendIndexHTML);
 
 		this.client.config.api.https ? this.startHTTPS() : this.startHTTP();
 	}
@@ -103,7 +90,7 @@ export default class Server {
 		res.sendFile(process.cwd() + `/public/index.html`);
 	}
 
-	private ready(req: Request, res: Response, next: Function) {
+	ready = (req: Request, res: Response, next: Function) => {
 		console.log(req);
 		if (this.client.serverReady) {
 			next();
