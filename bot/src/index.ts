@@ -27,6 +27,7 @@ if (!fs.existsSync(configPath)) {
 		secret: '',
 		token: '',
 		memoryTrack: false,
+		proxyHTTPS: false,
 	};
 	const dirPath = process.cwd() + '/config';
 	if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath);

@@ -5,6 +5,7 @@ export interface ClientConfig {
 	mysql: MySQLConfig;
 	api: APIConfig;
 	memoryTrack: boolean;
+	proxyHTTPS: boolean;
 }
 
 export interface MySQLConfig {
