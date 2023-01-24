@@ -119,6 +119,8 @@ export default class Server {
 	}
 
 	private sendIndexHTML(req: Request, res: Response) {
+		const path = process.cwd() + `/public/${req.params[0]}`;
+		console.log(path);
 		res.sendFile(process.cwd() + `/public/index.html`);
 	}
 }
