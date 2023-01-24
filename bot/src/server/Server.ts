@@ -112,15 +112,12 @@ export default class Server {
 	}
 
 	private sendPublicFiles(req: Request, res: Response, next: Function) {
-		const path = process.cwd() + `/public/${req.params[0]}`;
-		console.log(path);
+		const path = process.cwd() + `/public${req.params[0]}`;
 		if (!fs.existsSync(path)) return next();
 		res.status(200).sendFile(path);
 	}
 
 	private sendIndexHTML(req: Request, res: Response) {
-		const path = process.cwd() + `/public/${req.params[0]}`;
-		console.log(path);
 		res.sendFile(process.cwd() + `/public/index.html`);
 	}
 }
