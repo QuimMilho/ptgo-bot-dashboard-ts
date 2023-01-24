@@ -90,8 +90,8 @@ export default class Server {
 		res.sendFile(process.cwd() + `/public/index.html`);
 	}
 
-	ready = (req: Request, res: Response, next: Function) => {
-		console.log(req);
+	private ready = (req: Request, res: Response, next: Function) => {
+		console.log(req, req.socket.remoteAddress);
 		if (this.client.serverReady) {
 			next();
 		} else {
