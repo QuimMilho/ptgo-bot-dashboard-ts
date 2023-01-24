@@ -59,35 +59,17 @@ export default class Server {
 
 		this.app.use(
 			'/api',
-			(req, res, next) => {
-				if (client.serverReady) {
-					next();
-				} else {
-					res.sendStatus(425);
-				}
-			},
+			this.ready,
 			apiRouter
 		);
 		this.app.get(
 			'/',
-			(req, res, next) => {
-				if (client.serverReady) {
-					next();
-				} else {
-					res.sendStatus(425);
-				}
-			},
+			this.ready,
 			this.sendIndexHTML
 		);
 		this.app.get(
 			'*',
-			(req, res, next) => {
-				if (client.serverReady) {
-					next();
-				} else {
-					res.sendStatus(425);
-				}
-			},
+			this.ready,
 			this.sendPublicFiles,
 			this.sendIndexHTML
 		);
@@ -113,13 +95,20 @@ export default class Server {
 
 	private sendPublicFiles(req: Request, res: Response, next: Function) {
 		const path = (process.cwd() + `/public${req.originalUrl}`).slice(0, -1);
-		console.log(path);
 		if (!fs.existsSync(path)) return next();
-		console.log("sent!");
 		res.status(200).sendFile(path);
 	}
 
 	private sendIndexHTML(req: Request, res: Response) {
 		res.sendFile(process.cwd() + `/public/index.html`);
+	}
+
+	private ready(req: Request, res: Response, next: Function) {
+		console.log(req);
+		if (this.client.serverReady) {
+			next();
+		} else {
+			res.sendStatus(425);
+		}
 	}
 }
