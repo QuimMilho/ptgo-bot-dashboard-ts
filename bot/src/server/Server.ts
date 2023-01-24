@@ -112,7 +112,7 @@ export default class Server {
 	}
 
 	private sendPublicFiles(req: Request, res: Response, next: Function) {
-		const path = process.cwd() + `/public${req.params[0]}`;
+		const path = process.cwd() + `/public${req.originalUrl}`;
 		console.log(path);
 		if (!fs.existsSync(path)) return next();
 		console.log("sent!");
